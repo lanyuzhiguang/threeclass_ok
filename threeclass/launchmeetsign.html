@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>会议签到</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../moduleweb/resources/plugins/toastr/toastr.min.css" />
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #F0F2F5;
+        }
+        
+        .page-top {
+            background-color: #FFFFFF;
+            padding: 16px;
+            padding-left: 28px;
+        }
+        
+        .back {
+            cursor: pointer;
+            font-weight: 400;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        
+        .pagetitle {
+            padding-top: 12px;
+            color: rgba(0, 0, 0, 0.847058823529412);
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 28px;
+        }
+        
+        .meeting-content {
+            margin-top: 24px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+            background-color: #FFFFFF;
+        }
+        
+        .sign-content {
+            margin-left: 2.02%;
+            margin-right: 2.02%;
+            width: 95.78%;
+            text-align: left;
+            padding: 0 2.641%;
+        }
+        
+        .row-filtrate {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 24px 0;
+            padding-left: 3.345%;
+        }
+        
+        .filtrate-name {
+            width: 20.09%;
+        }
+        
+        .filtrate-name input {
+            padding-left: 10px;
+            width: 74.07%;
+            height: 32px;
+            border: 1px solid#D9D9D9;
+            color: #D9D9D9;
+            border-radius: 4px;
+        }
+        
+        .filtrate-section {
+            width: 27.51%;
+        }
+        
+        .filtrate-section input {
+            padding-left: 10px;
+            width: 67.567%;
+            height: 32px;
+            border: 1px solid#D9D9D9;
+            color: #D9D9D9;
+            border-radius: 4px;
+        }
+        
+        .filtrate-sign {
+            width: 21.933%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        .sign-title {
+            width: 35.25%;
+        }
+        
+        .dropdown {
+            width: 55.6%;
+        }
+        
+        .filtrate-btns {
+            width: 170px;
+        }
+        
+        .outbtn,
+        .checkbtn {
+            width: 50px;
+            height: 32px;
+            background-color: #1890FF;
+            border: 1px solid#1890FF;
+            border-radius: 4px;
+            color: #FFFFFF;
+        }
+        
+        .outbtn {
+            width: 70px;
+            display: block;
+            text-align: center;
+            line-height: 32px;
+            margin-right: 16px;
+        }
+        
+        a:hover {
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+        
+        .reset {
+            width: 50px;
+            height: 32px;
+            background-color: #FFFFFF;
+            border: 1px solid#D9D9D9;
+            border-radius: 4px;
+            color: #5A5A78;
+        }
+        
+        .table-cntent {
+            width: 100%;
+        }
+        
+        .row-title {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 55px;
+            line-height: 55px;
+            background-color: #FAFAFA;
+            border-top: 1px solid#E8E8E8;
+            border-bottom: 1px solid#E8E8E8;
+            color: #262626;
+            font-weight: 700;
+        }
+        
+        .name-col {
+            width: 24.44%;
+            padding-left: 42px;
+            height: 100%;
+        }
+        
+        .section-col {
+            width: 33.64%;
+        }
+        
+        .time-col {
+            width: 28.996%;
+        }
+        
+        .status-col {
+            width: 13.01%;
+        }
+        
+        .row-item {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 55px;
+            line-height: 55px;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid#E8E8E8;
+            color: #5A5A5A;
+            font-weight: 400;
+        }
+        
+        .icon-yuandian {
+            font-size: 14px;
+        }
+        
+        .NotStarted,
+        .nosignin {
+            color: #BFBFBF;
+        }
+        
+        .late,
+        .underway {
+            color: #0E77D1;
+        }
+        
+        .end,
+        .signin {
+            color: #00A854;
+        }
+        
+        .vacate {
+            color: #FFBF00;
+        }
+        
+        .absence {
+            color: #F04134;
+        }
+        
+        .leaveitem {
+            color: #1890FF;
+        }
+        
+        .iconfont {
+            font-size: 13px;
+        }
+        
+        #readpage {
+            margin-top: 20px;
+            float: right;
+            padding-right: 15px;
+        }
+        
+        .layui-laypage .layui-laypage-curr .layui-laypage-em {
+            background-color: #1890FF;
+            border-radius: 4px;
+        }
+        
+        .layui-laypage a,
+        .layui-laypage span {
+            margin-right: 4px;
+            border-radius: 4px;
+            background: none;
+        }
+        
+        .layui-laypage-count {
+            border: none !important;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .layui-laypage span {
+            color: #5A5A5A;
+            font-weight: 400;
+        }
+        
+        .layui-laypage-limits {
+            border: none !important;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .layui-laypage-skip {
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .layui-laypage input {
+            width: 30px;
+            padding: 0;
+        }
+        
+        .layui-laypage-limits select {
+            border: 1px solid#CCCCCC;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        
+        .layui-input,
+        .layui-textarea {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-top">
+        <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+        <div class="pagetitle">会议签到</div>
+    </div>
+    <div class="meeting-content sign-content clearfix">
+        <div class="row-filtrate clearfix ">
+            <a href="#" class="outbtn" onclick="outexel()">导出</a>
+            <div class="filtrate-name">
+                <span id="" class="rownav-title ">姓名:</span>
+                <input type="text" placeholder="请输入" class="selectname" />
+            </div>
+            <div class="filtrate-section">
+                <span id="" class="rownav-title ">所属支部:</span>
+                <input type="text" placeholder="请输入" class="selectsection" />
+            </div>
+            <div class="filtrate-sign">
+                <span id="" class="sign-title">签到状态:</span>
+                <div class="dropdown">
+                    <select class="selectlist form-control signlist">
+                        <option value="">请选择</option>
+                        <option value="2">已签到</option>
+                        <option value="0,1">未签到</option>
+                        <option value="5">缺勤</option>
+                        <option value="4">请假</option>
+                        <option value="3">迟到</option>
+                        <option value="6">待审核</option>
+                        <option value="7" >驳回</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filtrate-btns">
+                <button class="checkbtn" onclick="gocheck()">查询</button>
+                <button class="reset" onclick="goclear()">重置</button>
+            </div>
+        </div>
+        <div class="table-cntent">
+            <div class="row-title">
+                <div class="name-col">姓名
+                    <span class="iconfont icon-lisimoshicaidandaohang"></span>
+                </div>
+                <div class="section-col">所属支部</div>
+                <div class="time-col">阅读时间</div>
+                <div class="status-col">签到状态
+                    <span class="iconfont icon-iconfont"></span></div>
+            </div>
+            <div class="nored-list list"></div>
+        </div>
+        <div id="readpage"></div>
+    </div>
+    <!--item-->
+    <div class=" row-item signitem" style="display: none;">
+        <div class="name-col name"></div>
+        <div class="section-col section"></div>
+        <div class="time-col time"></div>
+        <div class="status-col">
+            <span class="iconfont icon-yuandian signinyuan"></span>
+            <span class="signText"></span>
+        </div>
+    </div>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../layui/layui.all.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+    <script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var id = getParam("id");
+
+        var signitem = $(".signitem")
+        signitem.remove();
+        var pagea = 1; //开始页数
+        var sizea = 20; //每页最多显示条数
+        var nowpagea = 1; //当前页数
+        var pagesa = 0; //总数
+        var state = "";
+        var bumenname = "";
+        var selectname = "";
+        state = getParam("signstate");
+        $(function() {
+            xuanran()
+        })
+
+        function outexel() {
+            selectname = $(".selectname").val();
+            bumenname = $(".selectsection").val();
+            window.location.href = _ctxPath + "conference/detail/dowByConfer.action?in:state|array-integer=" + state +
+                "&regex:bumenName=" + bumenname + "&regex:userName=" + selectname + "&conference._id=" + id;
+        }
+
+        function xuanran() {
+            $.get(_ctxPath + "conference/detail/queryByConfer.action", {
+                "conference._id": id,
+                "page": nowpagea, //当前页数
+                "size": sizea,
+                "in:state|array-integer": state,
+                "regex:bumenName": bumenname,
+                "regex:userName": selectname
+
+            }, function(data) {
+                var arr = data.data.data;
+                pagesa = data.data.total;
+                pagea = data.data.page;
+                //		    	$(".outbtn").attr("href",)
+                $(".list").html("");
+                if (arr.length > 0) {
+                    $(arr).each(function() {
+                        var item = signitem.clone().css("display", "");
+                        item.find(".name").text(this.userName);
+                        item.find(".section").text(this.bumenName);
+                        item.find(".time").text(this.updateTime)
+                        var signobj = JSON.parse(signstateFun(this.state));
+                        item.find(".signText").text(signobj.txt);
+                        item.find(".signinyuan").css("color", signobj.color);
+                        $(".list").append(item);
+                    })
+                }
+                pagepeozhi()
+            })
+        }
+
+        function pagepeozhi() {
+            layui.use(['laypage', 'layer'], function() {
+                var laypage = layui.laypage,
+                    layer = layui.layer;
+                laypage.render({
+                    elem: 'readpage',
+                    count: pagesa,
+                    curr: nowpagea,
+                    limit: sizea,
+                    layout: ['count', 'prev', 'page', 'next', 'skip'],
+                    jump: function(obj, first) {
+                        nowpagea = obj.curr;
+                        pagea = (obj.curr - 1) * sizea;
+                        if (!first) { //一定要加此判断，否则初始时会无限刷新
+                            xuanran(); //一定要把翻页的ajax请求放到这里，不然会请求两次。
+                            location.href = '#top';
+                        }
+                    }
+                });
+            });
+        }
+
+        function gocheck() {
+            state = $(".selectlist option:selected").val();
+
+            selectname = $(".selectname").val();
+       
+            bumenname = $(".selectsection").val();
+            xuanran()
+        }
+
+        function goclear() {
+            $(".selectlist ").val("");
+            $(".selectname").val("");
+            $(".selectsection").val("");
+        }
+
+        function signstateFun(state) {
+            var test = {};
+            if (state == "2") {
+                test["txt"] = '已签到';
+                test["color"] = "#52C41A";
+            } else if (state == "3") {
+                test["txt"] = '迟到';
+                test["color"] = "#834DDD";
+            } else if (state == "4") {
+                test["txt"] = '请假';
+                test["color"] = "#FFBF00";
+            } else if (state == "5") {
+                test["txt"] = '缺勤';
+                test["color"] = "#F5222D";
+            } else if (state == "6") {
+                test["txt"] = '待审核';
+                test["color"] = "#0084ff";
+            } else if (state == "7") {
+                test["txt"] = '驳回';
+                test["color"] = "#ff0096";
+            } else if (state == "0" || state == "1") {
+                test["txt"] = '未签到';
+                test["color"] = "#565656";
+            }
+            return JSON.stringify(test);
+        }
+
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = decodeURIComponent(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++;
+            }
+            return paramValue == "" && (paramValue = null), paramValue;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>会议记录</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #F0F2F5;
+        }
+        
+        .nav-tabs {
+            height: 58px;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+            background-color: #FFFFFF;
+        }
+        
+        .aw-nav-tabs>li {
+            padding: 0px;
+        }
+        
+        .aw-nav-tabs>li>a {
+            color: #6D6969;
+            padding: 0 20px;
+            background-color: none;
+            border: none;
+            cursor: pointer;
+            line-height: 47px;
+            margin: 0 24px;
+        }
+        
+        .nav-tabs>li>a:focus,
+        .nav-tabs>li>a:hover {
+            background: none;
+            border-bottom: 1px solid #209CFF;
+            color: #209CFF;
+        }
+        
+        .nav-tabs>li.active>a,
+        .nav-tabs>li.active>a:focus,
+        .nav-tabs>li.active>a:hover {
+            line-height: 30px;
+            background-color: #fff;
+            border: none;
+            border-bottom: 1px solid #209CFF;
+            font-weight: 700;
+            color: #209CFF;
+            line-height: 47px;
+            cursor: pointer;
+        }
+        
+        .back {
+            cursor: pointer;
+            padding-left: 28px;
+            background-color: #FFFFFF;
+            font-size: 14px;
+        }
+        
+        .content {
+            margin: 0 28px;
+            margin-top: 24px;
+            background-color: #FFFFFF;
+            padding: 0 32px;
+        }
+        
+        .base-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #272727;
+            border-bottom: 1px solid#E9E9E9;
+            line-height: 55px;
+        }
+        
+        .basemsg-item {
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .base-title-item {
+            font-size: 14px;
+            color: #5A5A5A;
+            flex: 30%;
+        }
+        
+        .basemsg-item-content {
+            flex: 70%;
+        }
+        
+        .basemsg-content {
+            padding: 17px 0;
+        }
+        
+        .basemsg-row {
+            padding: 13px 0;
+        }
+        
+        .see {
+            color: #1890FF;
+            cursor: pointer;
+            padding-left: 10px;
+        }
+        
+        .meeting-content {
+            line-height: 22px;
+            padding-top: 24px;
+            padding-bottom: 12px;
+            width: 100%;
+        }
+        
+        .laterimglist {
+            padding-bottom: 12px;
+        }
+        
+        .meeting-content-img {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            height: 104px;
+        }
+        
+        .meeting-content-img img {
+            width: 9.774%;
+            height: auto;
+            margin-right: 1.504%;
+            display: block;
+        }
+        
+        .meeting-content-fujian {
+            padding-bottom: 24px;
+        }
+        
+        .fujian {
+            margin-bottom: 150px;
+        }
+        
+        .fujian-item {
+            padding: 5px;
+        }
+        /*people*/
+        
+        .people-content {
+            margin: 0 28px;
+            margin-top: 24px;
+        }
+        
+        .people-title {
+            background-color: #FAFAFA;
+            font-size: 14px;
+            color: #262626;
+            border: 1px solid#E9E9E9;
+            line-height: 55px;
+            padding: 0 32px;
+        }
+        
+        .people-item {
+            background-color: #FFFFFF;
+            padding: 13px 17px;
+            height: 52px;
+            border-bottom: 1px solid#E9E9E9;
+            color: #5A5A5A;
+            font-size: 14px;
+        }
+        
+        .inform-title-item {
+            padding-left: 24px;
+        }
+        
+        .num {
+            color: #24A2FF;
+        }
+        
+        #informallpeople {
+            cursor: pointer;
+        }
+        
+        .blue-item {
+            color: #1890FF;
+            padding-right: 10px;
+            cursor: pointer;
+        }
+        
+        .dujianname:hover {
+            text-decoration: none;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #5A5A5A;
+        }
+        
+        a:hover {
+            text-decoration: none;
+        }
+        
+        .sign-title {
+            background-color: #FAFAFA;
+            font-size: 14px;
+            color: #262626;
+            border: 1px solid#E9E9E9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class=" clearfix">
+        <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+        <ul class="nav nav-tabs aw-nav-tabs">
+            <li class="navitem active" name="#meetingdetail"><a href="#">会议详情</a></li>
+            <li class="navitem" name="#meetingrecord"><a href="#">会议记录</a></li>
+            <li class="navitem" name="#people"><a href="#">人员</a></li>
+        </ul>
+        <div class="meetingdetail allitem" id="meetingdetail">
+            <div class="content">
+                <div class="basemsg">
+                    <div class="base-title">基本信息</div>
+                    <div class="basemsg-content">
+                        <div class="basemsg-row row">
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">标题:</span>
+                                <span class="basemsg-item-content" id="conferenceTitle"></span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">分类：</span>
+                                <span class="basemsg-item-content" id="meethingname"></span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">会议状态：</span>
+                                <span class="basemsg-item-content" id="mymeetstate"></span>
+                            </div>
+                        </div>
+                        <div class="basemsg-row row">
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item ">开始时间：</span>
+                                <span class="basemsg-item-content" id="meetingstart"></span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">结束时间：</span>
+                                <span class="basemsg-item-content" id="meetingend"></span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">会议地点：</span>
+                                <span class="basemsg-item-content" id="meetingsite"></span>
+                            </div>
+                        </div>
+                        <div class="basemsg-row row">
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">组织部门：</span>
+                                <span class="basemsg-item-content" id="partment"></span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">参与人员：</span>
+                                <div class="basemsg-item-content">
+                                    <span class="peoplename"></span> 等
+                                    <span class="peoplenums"></span>人
+                                </div>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">签到状态：</span>
+                                <span class="basemsg-item-content" id="mysign"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="meeting-container">
+                    <div class="base-title">会议内容</div>
+                    <div class="meeting-content basemsg-item-content" id="meetcontent"></div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="meeting-img">
+                    <div class="base-title">图片</div>
+                    <div class="meeting-content meeting-content-img detailimglist"></div>
+                </div>
+            </div>
+            <div class="content fujian">
+                <div class="base-title">会议材料</div>
+                <div class="meeting-content meeting-content-fujian materials-content meetmaterials"></div>
+            </div>
+        </div>
+        <div class="meetingrecord allitem" id="meetingrecord" style="display:none;">
+            <div class="content">
+                <div class="meeting-img">
+                    <div class="base-title">现场图片</div>
+                    <div class="meeting-content meeting-content-img midimglist"></div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="meeting-container">
+                    <div class="base-title">会议记录</div>
+                    <div class="meeting-content basemsg-item-content recordcont"></div>
+                    <div class="meeting-content-img laterimglist"></div>
+                </div>
+            </div>
+            <div class="content fujian">
+                <div class="base-title">会议附件</div>
+                <div class="meeting-content meeting-content-fujian meetfujianlist"></div>
+            </div>
+        </div>
+        <div class="people allitem" id="people" style="display:none;">
+            <div class="meeting-inform people-content">
+                <div class="people-title">
+                    <span id="informallpeople">会议通知</span>
+                    <span class="inform-title-item"><span>通知到达率</span><span class="informprecent"></span></span>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        通知未读（<span class="NOreadN"></span>）
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                        <span class="noreadarr"></span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <span class="blue-item" onclick="goseenored()">查看</span>
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        通知已读（<span class="readN"></span>）
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                        <span class="readarr"></span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <span class="blue-item" onclick="goseered()">查看</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="meeting-signin people-content">
+                <div class="people-item  sign-title">
+                    <div class="col-lg-10 col-md-10 col-sm-10">
+                        <span>会议签到</span>
+                        <span>会议出勤率</span><span class="signprecent"></span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <span class="blue-item" onclick="goseesign(this)" sign="">查看全部</span>
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        已签到（<span class="alreadSN"></span>）
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                        <span class="signarr"></span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <span class="blue-item" onclick="goseesign(this)" sign="2">查看</span>
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        未签到（<span class="noSN"></span>）
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                        <span class="noSinarr"></span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <span class="blue-item" onclick="goseesign(this)" sign="0,1">查看</span>
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        迟到（<span class="lateSN"></span>）
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                        <span class="latearr"></span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <span class="blue-item" onclick="goseesign(this)" sign="3">查看</span>
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        请假（<span class="okleaveN"></span>）
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                        <span class="okleavearr"></span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <span class="blue-item" onclick="goseesign(this)" sign="4">查看</span>
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        缺勤（<span class="absentN"></span>）
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                        <span class="absentarr"></span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <span class="blue-item" onclick="goseesign(this)" sign="5">查看</span>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="shawde" style="display: none;">
+        <div class="shawde-title">
+            <span class="iconfont icon-duihao"></span>
+            <span class="shawde-title-all">通知已发送完成</span>
+        </div>
+        <div class="shawde-title-num">
+
+            共发送通知
+            <<span>33</span>>条
+        </div>
+
+    </div>
+    <!--img-->
+    <img src="" class="meetimg" style="display: none;" />
+    <!--附件-->
+    <div class="funjianitem" style="display: none; ">
+        <a href="" class="ahref" target="_blank">
+            <span class="iconfont icon-fujian"></span>
+            <span class="filename">名字</span>
+        </a>
+    </div>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+    <script type="text/javascript">
+        var meetimg = $(".meetimg");
+        var funjianitem = $(".funjianitem");
+        //切换
+        $(".navitem").each(function() {
+            this.addEventListener("click", function() {
+                $(".navitem").removeClass('active');
+                $(this).addClass("active");
+                var show = $(this).attr("name");
+                $(".allitem").css("display", "none")
+                $(show).css("display", "block")
+            })
+        })
+    </script>
+    <script type="text/javascript" charset="utf-8">
+        var detailid = getParam("id");
+        var meetid;
+        $(function() {
+                $.get(_ctxPath + "conference/detail/findById.action", {
+                    "detailId": detailid
+                }, function(data) {
+                    conference = data.data.conference;
+                    meetid = conference._id
+                        //会议基本信息
+                    $("#conferenceTitle").text(conference.title);
+                    $("#partment").text(conference.forbumname);
+                    $("#meethingname").text(conference.meetTypeName);
+                    $("#meetingsite").text(conference.address);
+                    $("#meetingstart").text(conference.formatAttendtime);
+                    $("#meetingend").text(conference.formatEndTime);
+                    var signobj = JSON.parse(signstateFun(data.data.state));
+                    $("#mysign").text(signobj.txt);
+                    var meetstate = data.data.conference.state
+                    var meetobj = JSON.parse(meetstateFun(meetstate));
+                    $("#mymeetstate").text(meetobj.txt);
+                    var name = conference.toConferUser[0].name;
+                    $(".peoplename").text(name);
+                    $(".peoplenums").text(conference.toConferUser.length);
+                    //会议内容
+                    if (conference.content) {
+                        $("#meetcontent").html(conference.content);
+                    } else {
+                        $("#meetcontent").html("暂无会议内容");
+                    }
+                    //会议图片
+                    if (conference.imageUrls.length == 0) {
+                        $(".detailimglist").text("暂无图片")
+                    } else {
+                        $(conference.imageUrls).each(function() {
+                            var item = meetimg.clone().css("display", "")
+                            item.attr("src", this);
+                            $(".detailimglist").append(item)
+                        })
+                    }
+                    //会议材料
+                    if (conference.fileUrls.length == 0) {
+                        $(".meetmaterials").text("暂无会议材料");
+                    } else {
+                        var Furl = conference.fileUrls;
+                        var Fname = conference.fileNames;
+                        var Fid = conference.fileIds;
+                        $(Furl).each(function(index, key) {
+                            var item = funjianitem.clone().css("display", "");
+                            item.find(".ahref").attr("href", key);
+                            item.find(".ahref").attr("download", Fname[index]);
+                            item.find(".filename").text(Fname[index]);
+                            item.find(".filename").attr("flieid", Fid[index]);
+                            $(".meetmaterials").append(item);
+                        })
+                    }
+                    //会议记录
+                    //会中
+                    var midimgarr = conference.conferImagesUrls;
+
+                    if (midimgarr.length == 0) {
+                        $(".midimglist").text("暂无现场图片")
+                    } else {
+                        $(".midimglist").css("display", "");
+                        $(conference.conferImagesUrls).each(function() {
+                            var item = meetimg.clone().css("display", "")
+                            item.attr("src", this);
+                            $(".midimglist").append(item);
+                        })
+
+                    }
+                    //会后
+                    var minCont = conference.minCont;
+                    if (conference.minutisgeUrls.length == 0 && !minCont) {
+                        $(".recordcont").text("暂无会议记录")
+                    } else {
+                        $(".recordcont").html(conference.minCont)
+                        $(conference.minutisgeUrls).each(function() {
+                            var item = meetimg.clone().css("display", "")
+                            item.attr("src", this);
+                            $(".laterimglist").append(item)
+                        })
+                    }
+                    //会议附件
+                    var Furl = conference.minFileUrls;
+                    var Fname = conference.minfileNames;
+                    var Fid = conference.minfileid
+                    if (Furl.length > 0) {
+                        $(Furl).each(function(index, key) {
+                            var item = funjianitem.clone().css("display", "");
+                            item.find(".ahref").attr("href", key);
+                            item.find(".ahref").attr("download", Fname[index]);
+                            item.find(".filename").text(Fname[index]);
+                            item.find(".filename").attr("flieid", Fid[index]);
+                            $(".meetfujianlist").append(item);
+
+                        })
+                    } else {
+                        $(".meetfujianlist").text("暂无会议附件");
+                    }
+                    //人员
+                    peopleFun()
+
+
+                })
+            })
+            //函数
+        function meetstateFun(state) {
+            var test = {};
+            if (state == "0" || state == "1") {
+                test["txt"] = '未开始';
+                test["color"] = "#40A9FF";
+            } else if (state == "2") {
+                test["txt"] = '进行中';
+                test["color"] = "#40A9FF";
+            } else if (state == "3" || state == "4" || state == "5") {
+                test["txt"] = '已结束';
+                test["color"] = "#73D13D";
+            } else if (state == "-1") {
+                test["txt"] = '已取消';
+                test["color"] = "#F5222D";
+            }
+            return JSON.stringify(test);
+        };
+
+        function signstateFun(state) {
+            var test = {};
+            if (state == "2") {
+                test["txt"] = '已签到';
+                test["color"] = "#52C41A";
+            } else if (state == "3") {
+                test["txt"] = '迟到';
+                test["color"] = "#834DDD";
+            } else if (state == "4") {
+                test["txt"] = '请假';
+                test["color"] = "#FFBF00";
+            } else if (state == "5") {
+                test["txt"] = '缺勤';
+                test["color"] = "#F5222D";
+            } else if (state == "6") {
+                test["txt"] = '待审核';
+                test["color"] = "#0084ff";
+            } else if (state == "7") {
+                test["txt"] = '驳回';
+                test["color"] = "#ff0096";
+            } else if (state == "0" || state == "1") {
+                test["txt"] = '未签到';
+                test["color"] = "#565656";
+            }
+            return JSON.stringify(test);
+        }
+
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = decodeURIComponent(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++;
+            }
+            return paramValue == "" && (paramValue = null), paramValue;
+        }
+    </script>
+    <script type="text/javascript">
+        function peopleFun() {
+            $.get(_ctxPath + "conference/detail/findSConrer.action", {
+                "conferId": meetid
+            }, function(data) {
+                var noReader = data.data.noReader;
+                var SnoReader = [];
+                SnoReader = SnoReader.concat(noReader);
+                var toReader = data.data.toReader;
+                var StoReader = [];
+                StoReader = StoReader.concat(toReader);
+                var noSin = data.data.noSin;
+                var SnoSin = noSin;
+                var SnoSin = [];
+                SnoSin = SnoSin.concat(noSin);
+                var isSin = data.data.isSin;
+                var SisSin = isSin;
+                var SisSin = [];
+                SisSin = SisSin.concat(isSin);
+                var Late = data.data.Late;
+                var SLate = [];
+                SLate = SLate.concat(Late);
+                var isLeave = data.data.isLeave;
+                var SisLeave = [];
+                SisLeave = SisLeave.concat(isLeave);
+                var isNduty = data.data.isNduty;
+                var SisNduty = [];
+                SisNduty = SisNduty.concat(isNduty);
+                $(".NOreadN").text(noReader.length);
+                $(".readN").text(toReader.length);
+                $(".alreadSN").text(isSin.length);
+                $(".noSN").text(noSin.length);
+                $(".lateSN").text(Late.length);
+                $(".okleaveN").text(isLeave.length);
+                $(".absentN").text(isNduty.length);
+                var informlv = noReader.length == 0 ? 100 : (toReader.length / noReader.length) * 100;
+                $(".informprecent").text(informlv + "%");
+                var signlv = noSin.length == 0 ? 100 : (isSin.length / noSin.length) * 100;
+                $(".signprecent").text(signlv + "%");
+
+                if (noReader.length > 0) {
+                    var noReaderarr = SnoReader.splice(0, 5);
+                    var noReadePeople = noReaderarr.join("、");
+                    $(".noreadarr").text(noReadePeople + "等" + noReader.length + "人");
+                }
+                if (toReader.length > 0) {
+                    var toReaderarr = StoReader.splice(0, 5);
+                    var toReaderPeople = toReaderarr.join("、");
+                    $(".readarr").text(toReaderPeople + "等" + toReader.length + "人");
+                }
+                if (isSin.length > 0) {
+                    var isSinarr = SisSin.splice(0, 5);
+                    var isSinPeople = isSinarr.join("、");
+
+                    $(".signarr").text(isSinPeople + "等" + isSin.length + "人");
+                }
+                if (noSin.length > 0) {
+                    var noSinarr = SnoSin.splice(0, 5);
+                    var noSinPeople = noSinarr.join("、");
+                    $(".noSinarr").text(noSinPeople + "等" + noSin.length + "人");
+                }
+                if (Late.length > 0) {
+                    var Latearr = SLate.splice(0, 5);
+                    var LatePeople = Latearr.join("、");
+                    $(".latearr").text(LatePeople + "等" + Late.length + "人");
+
+                }
+                if (isLeave.length > 0) {
+                    var isLeavearr = SisLeave.splice(0, 5);
+                    var isLeavePeople = isLeavearr.join("、");
+                    $(".okleavearr").text(isLeavePeople + "等" + isLeave.length + "人");
+
+                }
+                if (isNduty.length > 0) {
+                    var isNdutyarr = SisNduty.splice(0, 5);
+                    var isNdutyPeople = isNdutyarr.join("、");
+                    $(".absentarr").text(isNdutyPeople + "等" + isNduty.length + "人");
+
+                }
+            })
+
+        }
+
+        function goseenored() {
+            window.location.href = "informnoread.html?id=" + meetid;
+        }
+
+        function goseered() {
+            window.location.href = "informred.html?id=" + meetid;
+        }
+
+        function goseesign(that) {
+            var state = $(that).attr("sign");
+            window.location.href = "joinsign.html?id=" + meetid + "&signstate=" + state;
+        }
+    </script>
+</body>
+
+</html>

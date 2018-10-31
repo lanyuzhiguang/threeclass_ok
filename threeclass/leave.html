@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>请假</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../moduleweb/resources/plugins/toastr/toastr.min.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #F0F2F5;
+        }
+        
+        .page-top {
+            background-color: #FFFFFF;
+            padding: 16px;
+            padding-left: 28px;
+            width: 100%;
+        }
+        
+        .back {
+            cursor: pointer;
+            font-weight: 400;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        
+        .pagetitle {
+            padding-top: 12px;
+            color: rgba(0, 0, 0, 0.847058823529412);
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 28px;
+        }
+        
+        .content {
+            margin: 0 28px;
+            margin-top: 24px;
+            background-color: #FFFFFF;
+            padding: 0 32px;
+        }
+        
+        .meeting-content {
+            line-height: 22px;
+            padding-top: 24px;
+            padding-bottom: 12px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        
+        .base-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #272727;
+            border-bottom: 1px solid#E9E9E9;
+            line-height: 55px;
+        }
+        
+        .content-item {
+            width: 22.7%;
+            margin-right: 72px;
+        }
+        
+        .iconfont {
+            color: #FF2727;
+        }
+        
+        .name {
+            color: #272727;
+        }
+        
+        .content-item-title {
+            color: #272727;
+        }
+        
+        .content-item-wrap {
+            width: 100%;
+            color: #5A5A5A;
+            padding-top: 18px;
+        }
+        
+        .leavecontent {
+            width: 100%;
+            color: #5A5A5A;
+        }
+        
+        .content-item-wrap input {
+            width: 100%;
+            color: rgba(0, 0, 0, 0.247058823529412);
+            border: 1px solid rgba(0, 0, 0, 0.247058823529412);
+            border-radius: 4px;
+            height: 32px;
+            padding-left: 10px;
+        }
+        
+        .leave-content-top {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .content-wrap {
+            width: 100%;
+        }
+        
+        .leave-cause {
+            min-height: 140px;
+            text-align: left;
+            width: 100%;
+            color: rgba(0, 0, 0, 0.247058823529412);
+            border: 1px solid rgba(0, 0, 0, 0.247058823529412);
+            border-radius: 4px;
+            height: 32px;
+            padding-left: 10px;
+        }
+        
+        .btns {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btns button {
+            width: 70px;
+            height: 40px;
+            font-size: 16px;
+        }
+        
+        .cancel {
+            border: 1px solid#E9E9E9;
+            background-color: #FFFFFF;
+            color: rgba(0, 0, 0, 0.647058823529412);
+            border-radius: 4px;
+            margin-right: 13px;
+        }
+        
+        .confirm {
+            border: 1px solid#1890FF;
+            border-radius: 4px;
+            color: #FFFFFF;
+            background-color: #1890FF;
+        }
+        
+        .content--title {
+            line-height: 55px;
+        }
+        
+        .wrap-item {
+            padding-bottom: 20px;
+        }
+        
+        .conclusion-check {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        .content-title {
+            padding-top: 20px;
+        }
+        
+        .leavemsg-state {
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="upleave" style="display: none;">
+        <div class="page-top">
+            <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+            <div class="pagetitle">请假申请</div>
+        </div>
+        <div class="content ">
+            <div class="base-title">提交请假信息</div>
+            <div class="meeting-content leave-content">
+                <div class="leave-content-top">
+                    <div class="content-item">
+                        <div class="content-item-title">
+                            <span class="iconfont">*</span>
+                            <span class="name">标题</span>
+                        </div>
+                        <div class="content-item-wrap">
+                            <input type="" name="" id="" value="" placeholder="请输入会议标题" class="leavetitle" />
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-item-title">
+                            <span class="iconfont">*</span>
+                            <span class="name">姓名</span>
+                        </div>
+                        <div class="content-item-wrap">
+                            <input type="" name="" id="" value="" placeholder="请输入名字" class="leavename" />
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-item-title">
+                            <span class="iconfont">*</span>
+                            <span class="name">所属支部</span>
+                        </div>
+                        <div class="content-item-wrap">
+                            <input type="" name="" id="" value="" placeholder="请输入所属支部" class=" leavesection" />
+                        </div>
+                    </div>
+                </div>
+                <div class="content-wrap">
+                    <div class="content-item-title" style="padding-top: 15px;">
+                        <span class="iconfont">*</span>
+                        <span class="name">请假事由</span>
+                    </div>
+                    <div class="content-item-wrap">
+                        <textarea name="" rows="" cols="" placeholder="请输入文本" class="leave-cause leavecontent"></textarea>
+                    </div>
+                    <div class="btns">
+                        <button class="cancel" onclick="cancelleave()">取消</button>
+                        <button class="confirm" onclick="upleaveFUN()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="leavemsg" style="display: none;">
+        <div class="page-top">
+            <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+            <div class="pagetitle">请假申请</div>
+        </div>
+        <div class="content">
+            <div class="base-title">提交请假信息</div>
+            <div class="meeting-content leave-content">
+                <div class="leave-content-top">
+                    <div class="content-item">
+                        <span class="content-item-title">标题：</span>
+                        <span class="content-item-wrap leavetitle"></span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-item-title">姓名：</span>
+                        <span class="content-item-wrap leavename"></span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-item-title">所属支部：</span>
+                        <span class="content-item-wrap leavesection"></span>
+                    </div>
+                </div>
+                <div class="content-wrap ">
+                    <div class="content--title content-item-title">请假事由:</div>
+                    <div class=" because leavecontent"></div>
+                </div>
+            </div>
+        </div>
+        <div class="content" style="margin-bottom: 28px;">
+            <div class="base-title">审核请假信息</div>
+            <div class="content-wrap">
+                <div class="content-item-title content-title leavemsg-state">待审核</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="leaveresult" style="display: none;">
+        <div class="page-top">
+            <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+            <div class="pagetitle">请假审批</div>
+        </div>
+        <div class="content">
+            <div class="base-title">提交请假信息</div>
+            <div class="meeting-content leave-content">
+                <div class="leave-content-top">
+                    <div class="content-item">
+                        <span class="content-item-title">标题：</span>
+                        <span class="content-item-wrap leavetitle"></span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-item-title">姓名：</span>
+                        <span class="content-item-wrap leavename"></span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-item-title">所属支部：</span>
+                        <span class="content-item-wrap leavesection"></span>
+                    </div>
+                </div>
+                <div class="content-wrap ">
+                    <div class="content--title content-item-title">请假事由:</div>
+                    <div class="because leavecontent"></div>
+                </div>
+            </div>
+        </div>
+        <div class="content" style="margin-bottom: 28px;">
+            <div class="base-title">审核请假信息</div>
+            <div class="content-wrap">
+                <div class="content-item-title content-title">审核意见</div>
+                <div class="content-item-wrap wrap-item comment"></div>
+            </div>
+            <div class="wrap-item">
+                <span class="content-item-title">审核结论：</span>
+                <span class="content-item-wrap result"></span>
+            </div>
+            <div class="wrap-item">
+                <span class="content-item-title">审核时间：</span>
+                <span class="content-item-wrap commenttime"></span>
+            </div>
+        </div>
+
+    </div>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+    <script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var id = getParam("id");
+        var upone = true;
+        $(function() {
+            xuanran()
+        })
+
+        function xuanran() {
+            $.get(_ctxPath + "conference/detail/findById.action", {
+                "detailId": id
+            }, function(data) {
+
+                var leave = data.data.leave;
+                var conference = data.data.conference;
+                if (leave.length == 0) {
+                    if (data.data.state == 4 || data.data.state == 7) {
+                        toastr.success("暂无请假信息");
+                        setTimeout(function() {
+                            history.back(-1)
+                        }, 2000)
+
+                    } else {
+                        $(".upleave").css("display", "");
+                        $(".leavetitle").val(conference.title);
+                        $(".leavename").val(data.data.userName);
+                        $(".leavesection").val(conference.forbumname);
+                    }
+
+                }
+                if (leave.length == 1) {
+                    var time = leave[0].formatCreateTime;
+                    $(".leavemsg").css("display", "");
+                    $(".leavetitle").text(data.data.leave[0].title);
+                    $(".leavename").text(data.data.leave[0].userName);
+                    $(".leavesection").text(data.data.leave[0].bumenName);
+                    $(".leavecontent").text(data.data.leave[0].content);
+                    $(".uptime").text(time);
+                }
+                if (leave.length == 2) {
+                    var state = data.data.state;
+                    var time = leave[0].formatCreateTime;
+                    var commenttime = leave[1].formatCreateTime;
+                    var commentcontent = leave[1].formatCreateTime;
+                    $(".leaveresult").css("display", "");
+                    $(".leavetitle").text(data.data.leave[0].title);
+                    $(".leavename").text(data.data.leave[0].userName);
+                    $(".leavesection").text(data.data.leave[0].bumenName);
+                    $(".leavecontent").text(data.data.leave[0].content);
+                    $(".uptime").text(time);
+                    $(".commenttime").text(commenttime);
+                    $(".comment").text(data.data.leave[1].content);
+                    if (state == 7) {
+                        $(".zongcol").addClass("red")
+                        $(".result").text("驳回");
+                    } else if (state == 4) {
+                        $(".result").text("批准请假");
+                    }
+
+                }
+
+            })
+        }
+
+        function cancelleave() {
+            history.back(-1)
+
+        }
+
+        function upleaveFUN() {
+            var title = $(".leavetitle").val();
+            var userName = $(".leavename").val();
+            var bumenName = $(".leavesection").val();
+            var content = $(".leavecontent").val();
+            if (upone) {
+                $.post(_ctxPath + "conference/detail/userLeave.action", {
+                    "detailId": id,
+                    "title": title,
+                    "userName": userName,
+                    "bumenName": bumenName,
+                    "content": content
+                }, function(data) {
+                	if (data.success) {
+                	setTimeout(function(){history.back(-1)},1000)
+                    toastr.success("提交请假成功");
+                		
+                	} else{
+                		toastr.success(data.message);
+                	}
+		 			
+                })
+            } else {
+                toastr.success("请勿重复提交");
+            }
+
+
+
+        }
+
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = decodeURIComponent(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++;
+            }
+            return paramValue == "" && (paramValue = null), paramValue;
+        }
+    </script>
+</body>
+
+</html>

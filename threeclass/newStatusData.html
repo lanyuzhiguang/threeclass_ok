@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>新建、编辑学习资料</title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../iconFont/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../layui/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/resoueceLibrary.css" />
+    <link href="../../resources/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../layui/css/modules/layer/default/layer.css" />
+    <link rel="stylesheet" type="text/css" href="../css/uploadFile.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/plugins/toastr/toastr.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        .form-inline {
+            margin-top: 12px;
+        }
+        
+        .form-inline:nth-of-type(1)>label,
+        .form-inline:nth-of-type(3)>label {
+            line-height: 34px;
+        }
+        
+        #editor {
+            width: 450px;
+            margin-top: 12px;
+        }
+        
+        footer {
+            text-align: center;
+        }
+        
+        .edui-body-container {
+            max-height: 300px;
+        }
+        
+        .promptdelete .deleteText {
+            text-align: left;
+        }
+        
+        .title {
+            font-weight: bold;
+        }
+        
+        .deleteText .form-inline {
+            margin: 0;
+        }
+        
+        .deleteText ul li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <header class="container-fluid">
+            <div class="row">
+                <div class="col-xs-6 text-left">
+                    <a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+                    <h4>学习资料</h4>
+                </div>
+            </div>
+        </header>
+    </div>
+    <article class="container-fluid">
+        <div class="content row">
+            <div class="form-inline col-xs-12">
+                <label class="form-group col-xs-2 text-right"><span style="color: red;">*</span>资料名称：</label>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control dataName" placeholder="不超过30个字" />
+                </div>
+            </div>
+            <div class="form-inline col-xs-12">
+                <label class="form-group col-xs-2 text-right">资料分类：</label>
+                <div class="col-xs-3">
+                    <a href="javascript:;" class="choiceClass">选择分类</a>
+                </div>
+            </div>
+            <div class="form-inline col-xs-12">
+                <label class="form-group col-xs-2 text-right"><span style="color: red;">*</span>资料上传：</label>
+                <div class="col-xs-9">
+                    <p style="color: #ccc;line-height: 34px;">文件支持PDF格式，文件最大50M</p>
+                    <span class="btn btn-primary fileinput-button" style="margin: 0;">
+							<span>选择文件并上传</span>
+                    <input type="file" name="myfile" id="myfile" value="选择上传文件" onchange="fileChange(this,'pdf',true,52428800)" />
+                    </span>
+                    <div class="progress">
+                        <div class="progressSon">0%</div>
+                    </div>
+                    <div class="fileUtil">
+                        <p><span>文件大小：</span><span class="filesize">0B</span></p>
+                        <p><span>文件名字：</span><span class="filename">名字</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-inline col-xs-12">
+                <label class="form-group col-xs-2 text-right"><span style="color: red;">*</span>资料介绍：</label>
+                <div class="col-xs-9">
+                    <textarea id="editor" style="height: 300px;">
+							
+						</textarea>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer>
+        <button class="btn btn-primary submitCon">保存</button>
+        <button class="btn btn-default" onclick="history.go(-1)">返回</button>
+    </footer>
+    <div class="modal promptdelete" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row deleteText">
+                        <ul>
+                            <li class="classList" style="display: none;">
+                                <div class="title">
+                                    党政理论与基础
+                                </div>
+                                <div class="form-inline">
+                                    <label class="radio-inline classSonList" style="display: none;">
+											<input type="radio" value="option1" name="radioList"> <span></span>
+										</label>
+                                    <!--<label class="checkbox-inline">
+											<input type="checkbox" id="inlineCheckbox2" value="option2"> 党章党规
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="inlineCheckbox3" value="option3"> 党的建设
+										</label>-->
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary deleteSure">确定</button>
+                    <button class="btn btn-default cancelDelete">取消</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+</body>
+
+</html>
+<script src="../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="../layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../r/wx/common/pathimage"></script>
+<script type="text/javascript" charset="utf-8" src="../../resources/umeditor.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../resources/umeditor.config.js"></script>
+<script src="../js/uploadFile.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/plugins/qiniu.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function() {
+        var classList = $(".classList"),
+            classSonList = $(".classSonList"),
+            datas = {},
+            classId = '',
+            _id = "";
+        classList.remove();
+        classSonList.remove();
+        //获取地址栏参数
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        };
+        var editId = GetQueryString("id");
+
+        function editFun() {
+            if (editId) {
+                $.ajax({
+                    type: "get",
+                    url: _ctxPath + "pc/docDataPc/findById.action",
+                    data: {
+                        docId: editId
+                    },
+                    success: function(datae) {
+                        if (datae.success) {
+                            var datae = datae.data;
+                            $(".dataName").val(datae.name);
+                            classId = datae.classIds.join(",");
+                            fileId = datae.fileId;
+                            name = datae.fileName;
+                            size = datae.size;
+                            $(".filesize").text(size + "B");
+                            $(".filename").text(name);
+                            $(".progressSon").css("width", "100%");
+                            $(".progressSon").text("100%");
+                            _id = editId;
+                            ue.ready(function() {
+                                //异步回调
+                                UM.getEditor('editor').execCommand('insertHtml', datae.synopsis);
+                            });
+                            $.each($(".deleteText ul label"), function(key, value) {
+                                if ($(this).attr("id") == classId) {
+                                    $(this).find("input").prop("checked", true)
+                                }
+                            });
+                        } else {
+                            layer.open({
+                                title: '提示',
+                                content: datae.message
+                            });
+                        }
+                    }
+                });
+            } else {
+                
+            }
+        }
+        //分类
+        $.ajax({
+            type: "get",
+            url: _ctxPath + "pc/dataClassPc/findTentClass.action",
+            success: function(data) {
+                if (data.success) {
+                    var data = data.data;
+                    if (data.length > 0) {
+                        for (var a = 0; a < data.length; a++) {
+                            if (data[a].parentId == "0") {
+                                datas[data[a]._id] = [];
+                            }
+                        }
+                        for (var b = 0; b < data.length; b++) {
+                            $.each(datas, function(key, value) {
+                                if (key == data[b].parentId) {
+                                    datas[key].push(data[b]);
+                                }
+                            })
+                        }
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].parentId == "0") {
+                                var classListItem = classList.clone();
+                                classListItem.css("display", "");
+                                classListItem.attr("id", data[i]._id);
+                                classListItem.find(".title").text(data[i].name);
+                                if (datas[data[i]._id].length > 0) {
+                                    for (var c = 0; c < datas[data[i]._id].length; c++) {
+                                        var classSonListItem = classSonList.clone();
+                                        classSonListItem.css("display", "");
+                                        classSonListItem.attr("id", datas[data[i]._id][c]._id);
+                                        classSonListItem.find("span").text(datas[data[i]._id][c].name);
+                                        classSonListItem.off("click").on("click", function() {
+                                            $(".promptdelete .deleteSure").attr("id", $(this).attr("id"));
+                                        });
+                                        classListItem.find(".form-inline").append(classSonListItem);
+                                    }
+                                }
+                                $(".deleteText ul").append(classListItem);
+                            }
+                        }
+                        editFun();
+                    } else {
+                        //数据为空
+                    }
+                } else {
+                    layer.open({
+                        title: '提示',
+                        content: data.message
+                    });
+                }
+            }
+        });
+
+        //选择
+        $(".choiceClass").off("click").on("click", function() {
+            $(".promptdelete").fadeIn();
+            $(".promptdelete .deleteSure").off("click").on("click", function() {
+                classId = $(this).attr("id");
+                $(".promptdelete").fadeOut();
+            });
+        });
+        $(".promptdelete .cancelDelete,.promptdelete .close").click(function() {
+            $(".promptdelete").fadeOut();
+        });
+        //提交
+        var ue = UM.getEditor('editor');
+        $(".submitCon").off("click").on("click", function() {
+            upsertFun();
+        });
+
+        function upsertFun() {
+            if ($(".dataName").val().length <= 0) {
+                layer.open({
+                    title: '提示',
+                    content: '请填写资料名称！'
+                });
+            } else if ($(".dataName").val().length > 30) {
+                layer.open({
+                    title: '提示',
+                    content: '资料名称最多可填写30字！'
+                });
+            } else if (!classId) {
+                layer.open({
+                    title: '提示',
+                    content: '请选择学习资料分类！'
+                });
+            } else if (!fileId) {
+                layer.open({
+                    title: '提示',
+                    content: '请上传学习资料！'
+                });
+            } else if (UM.getEditor('editor').getContent() == '') {
+                layer.open({
+                    title: '提示',
+                    content: '请填写资料介绍！'
+                });
+            } else {
+                $.ajax({
+                    type: "get",
+                    url: _ctxPath + "pc/docDataPc/upsert.action",
+                    data: {
+                        "_id": _id,
+                        "classIdStrs": classId,
+                        "name": $(".dataName").val(),
+                        "fileId": fileId,
+                        "fileName": name,
+                        "size": size,
+                        "synopsis": UM.getEditor('editor').getContent()
+                    },
+                    success: function(data) {
+                        if (data.success) {
+                            window.history.go(-1);
+                        } else {
+                            layer.open({
+                                title: '提示',
+                                content: data.message
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    });
+</script>

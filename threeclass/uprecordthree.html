@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>上传记录</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../moduleweb/resources/plugins/toastr/toastr.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/plugins/layer/layui/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/plugins/layer/layui/css/modules/layer/default/layer.css" />
+    <link href="js/wangEditor/css/wangEditor.min.css" rel="stylesheet" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #F0F2F5;
+        }
+        
+        .page-top {
+            background-color: #FFFFFF;
+            padding: 16px;
+            padding-left: 28px;
+        }
+        
+        .back {
+            cursor: pointer;
+            font-weight: 400;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        
+        .pagetitle {
+            padding-top: 12px;
+            color: rgba(0, 0, 0, 0.847058823529412);
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 28px;
+        }
+        
+        .content {
+            margin: 0 28px;
+            margin-top: 24px;
+            background-color: #FFFFFF;
+            padding: 0 32px;
+        }
+        
+        .meeting-content {
+            line-height: 22px;
+            padding-top: 24px;
+            padding-bottom: 12px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        
+        .base-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #272727;
+            border-bottom: 1px solid#E9E9E9;
+            line-height: 55px;
+        }
+        
+        .leave-content-top {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        #editor-trigger {
+            padding-top: 10px;
+            width: 100%;
+            /*min-height:300px;*/
+        }
+        
+        .wangEditor-menu-container {
+            background-color: #F2F2F2;
+            border-bottom: 1px solid#CCCCCC;
+        }
+        
+        #meetingcontent {
+            width: 100%;
+            min-height: 300px;
+            display: block;
+        }
+        
+        .meeting-content-img {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            height: auto;
+            padding-bottom: 20px;
+        }
+        
+        .imgItem {
+            width: 9.774%;
+            height: 100px;
+            /*padding-left: 0!important;
+			padding-right: 0!important;
+			margin-right: 1.2rem;
+			margin-bottom: 0.588rem;*/
+            margin-right: 1.504%;
+            position: relative;
+        }
+        
+        .meeting-content-img img {
+            width: 100%;
+            height: 100px;
+            display: block;
+        }
+        
+        .del {
+            position: absolute;
+            width: 17px!important;
+            height: 17px;
+            right: 0;
+            top: 0;
+        }
+        
+        .del img {
+            width: 17px!important;
+            height: auto;
+            right: 0;
+            bottom: 0;
+            /*top: 0;*/
+        }
+        
+        .fileImg {
+            width: 9.774%;
+            margin-right: 1.504%;
+            display: block;
+            height: 100px;
+            border: 1px dashed #ddd;
+            text-align: center;
+            position: relative;
+        }
+        
+        .fileImg i {
+            line-height: 100px;
+            color: #ddd;
+            font-size: 40px;
+        }
+        
+        .fileImg input {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+        }
+        
+        .fileinput-button {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            color: #CCCCCC;
+            background-color: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            border: 1px solid #D9D9D9;
+            width: 110px;
+            height: 44px;
+        }
+        
+        .fileinput-button input {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+        }
+        
+        .progress {
+            width: 200px;
+            height: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .progressSon {
+            height: 12px;
+            width: 0%;
+            color: #fff;
+            font-size: 14px;
+            line-height: 12px;
+            text-align: center;
+            background-color: #108EE9;
+        }
+        
+        .fileUtil,
+        .kuozhan {
+            color: #CCCCCC;
+        }
+        
+        .btn {
+            margin-top: 24px;
+            background-color: #FFFFFF;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .cancel {
+            width: 70px;
+            height: 40px;
+            font-size: 16px;
+            border: 1px solid#E9E9E9;
+            background-color: #FFFFFF;
+            color: rgba(0, 0, 0, 0.647058823529412);
+            border-radius: 4px;
+            margin-right: 13px;
+        }
+        
+        .confirm {
+            width: 70px;
+            height: 40px;
+            font-size: 16px;
+            border: 1px solid#1890FF;
+            border-radius: 4px;
+            color: #FFFFFF;
+            background-color: #1890FF;
+        }
+        
+        a {
+            color: #CCCCCC;
+        }
+        
+        a:hover {
+            text-decoration: none;
+            color: #CCCCCC;
+        }
+        
+        .icon-fujian {
+            padding-right: 10px;
+        }
+        
+        .icon-1 {
+            font-size: 18px;
+        }
+        
+        .funjianitem {
+            position: relative;
+        }
+        
+        .canlefile {
+            position: absolute;
+            width: 17px!important;
+            height: 17px;
+            right: 0;
+            top: 0;
+        }
+        
+        .canlefile img {
+            width: 17px!important;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class=" clearfix">
+        <div class="page-top">
+            <div class="back" onclick="gobackFU()">&laquo;返回</div>
+            <div class="pagetitle">上传记录</div>
+        </div>
+        <div class="content">
+            <div class="meeting-img">
+                <div class="base-title">现场图片</div>
+                <div class="meeting-content meeting-content-img upimglist liveimglist">
+                    <div class="fileImg fileImg1">
+                        <input type="file" name="myfile" id="myfile" add=".upimglist" value="选择上传文件" onchange="fileChange(this,'image',true,5242880)" />
+                        <i class="iconfont icon-jia"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="base-title">会议记录</div>
+            <div class="meeting-content leave-content">
+                <div class="leave-content-top">
+                    <textarea name="" rows="" cols="" placeholder="在这里输入正文" id="meetingcontent"></textarea>
+                </div>
+            </div>
+            <div class="base-title">记录图片</div>
+            <div class="meeting-content meeting-content-img laterimglist">
+                <div class="fileImg">
+                    <input type="file" name="myfile" add=".laterimglist" id="myfile" value="选择上传文件" onchange="fileChange(this,'image',true,5242880)" />
+                    <i class="iconfont icon-jia"></i>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="base-title">会议附件</div>
+            <div class="meeting-content">
+                <span class="fileinput-button">
+				<span>上传</span>
+                <span class="iconfont icon-1"></span>
+                <input type="file" name="myfile" add=".upfilelist" id="myfile" value="选择上传文件" onchange="fileFUN(this,true,20971520)" />
+                </span>
+                <div class="kuozhan">
+                    支持扩展名：.pdf .doc .docx .xls .xlsx .ppt .pptx
+                </div>
+                <div class="fileUtil upfilelist"></div>
+            </div>
+        </div>
+        <div class="btn">
+            <button class="confirm" onclick="gobackFU()">上一步</button>
+            <button class="confirm" onclick="uprecord()">提交</button>
+        </div>
+    </div>
+    <!--附件-->
+    <div class="funjianitem" style="display: none; ">
+        <a href="" class="ahref" target="_blank">
+            <span class="iconfont icon-fujian"></span>
+            <span class="filename">名字</span>
+        </a>
+        <div class="progress">
+            <div class="progressSon"></div>
+        </div>
+        <div class="canlefile" onclick="cancleupf(this)"><img src="img/cha.png"></div>
+    </div>
+    <!--img-->
+    <div class="imgItem" style="display: none;">
+        <span class="del"><img src="img/cha.png"></span>
+        <img class="needimg" src="" goimgup="">
+    </div>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="js/wangEditor/js/wangEditor.min.js"></script>
+    <script src="../../../moduleweb/resources/plugins/qiniu.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/uploadFile.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+    <script src="../../resources/plugins/layer/layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var editor = new window.wangEditor('meetingcontent');
+        editor.create();
+        var fileImg = $(".fileImg1");
+        var id = getParam("id");
+        var funjianitem = $(".funjianitem");
+        var btnone = true;
+        var imgItem = $(".imgItem");
+        var liveArr = [];
+        var lafterArr = [];
+        var funameArr = [];
+        var fuidArr = [];
+
+        $.get(_ctxPath + "conference/findById.action", {
+            "conferId": id
+        }, function(data) {
+            var conference = data.data;
+            //		会中图片
+            if (conference.conferImagesUrls.length > 0) {
+                if (conference.conferImagesUrls.length == 9) {
+                    $(".liveimglist").find(".fileImg").remove();
+
+                }
+                var goimguparr = conference.conferImages;
+                $(conference.conferImagesUrls).each(function(index, key) {
+                    var item = imgItem.clone().css("display", "");
+                    item.find(".needimg").attr("src", key);
+                    item.find(".needimg").attr("goimgup", goimguparr[index])
+
+                    item.find(".del").off("click").on("click", function() {
+                        item.remove();
+                        if (index == 8) {
+                            $(".liveimglist").find(".fileImg").remove();
+                            $(".liveimglist").prepend(fileImg);
+                        }
+                    })
+                    $(".liveimglist").append(item);
+
+                })
+            }
+            //会议附件
+            var Furl = conference.minFileUrls;
+            var Fname = conference.minfileNames;
+            var Furl = conference.minFileUrls;
+            var Fid = conference.minfileid
+            if (Furl.length > 0) {
+                $(Furl).each(function(index, key) {
+                    var item = funjianitem.clone().css("display", "");
+                    item.find(".ahref").attr("href", key);
+                    item.find(".ahref").css("color", "#5A5A5A");
+                    item.find(".ahref").attr("download", Fname[index]);
+                    item.find(".filename").text(Fname[index]);
+                    item.find(".filename").attr("flieid", Fid[index]);
+                    item.find(".progress").css("display", "none");
+                    item.find(".canlefile").css("display", "none");
+                    $(".upfilelist").append(item);
+
+                })
+            }
+            //会议内
+            editor.$txt.html(conference.minCont);
+            //会议后图片
+            if (conference.minutisgeUrls.length > 0) {
+                if (conference.minutisgeUrls.length == 9) {
+                    $(".laterimglist").find(".fileImg").remove();
+
+                }
+                var goimguparr = conference.minImges;
+                $(conference.minutisgeUrls).each(function(index, key) {
+                    var item = imgItem.clone().css("display", "");
+
+                    item.find(".needimg").attr("src", key);
+                    item.find(".needimg").attr("goimgup", goimguparr[index]);
+                    item.find(".del").off("click").on("click", function() {
+                        item.remove();
+                        if (index == 8) {
+                            $(".laterimglist").find(".fileImg").remove();
+                            $(".laterimglist").prepend(fileImg);
+                        }
+                    })
+                    $(".laterimglist").append(item);
+
+                })
+            }
+
+        })
+        function uprecord() {
+            //会议中
+
+            var liveimgall = $(".liveimglist").find(".needimg");
+            $(liveimgall).each(function() {
+                    liveArr.push($(this).attr("goimgup"));
+                })
+                //会议内容
+            var content = editor.$txt.html();
+
+            //会议记录图片
+
+            var laterimgall = $(".laterimglist").find(".needimg");
+            $(laterimgall).each(function() {
+                    lafterArr.push($(this).attr("goimgup"))
+                })
+                //会议附件
+
+            var upfileall = $(".upfilelist").find(".funjianitem");
+            $(upfileall).each(function() {
+                    var fileid = $(this).find(".filename").attr("flieid");
+                    fuidArr.push(fileid);
+                    var filename = $(this).find(".filename").text();
+                    funameArr.push(filename);
+                })
+                //接口
+            var liveimg = liveArr.toString();
+            var afterimg = lafterArr.toString();
+            var fileid = fuidArr.toString();
+            var nameArr = funameArr.join("/");
+            if (btnone) {
+                $.post(_ctxPath + "conference/upMeetCont.action", {
+                    "conferId": id,
+                    "images": liveimg,
+                    "minCont": content,
+                    "minImges": afterimg,
+                    "minfileids": fileid,
+                    "minfileNames": nameArr,
+                }, function(data) {
+                  if (data.success) {
+                  	 	btnone = false;
+                    	toastr.success("上传成功！");
+                    	setTimeout(function() {
+                        window.location.href = "pcmyjoin.html"
+                    	}, 1000);
+                  } 
+                  else{
+                  		toastr.success(data.message);
+                  }
+                })
+            } else {
+                toastr.success("请勿重复提交");
+            }
+
+
+        }
+
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = decodeURIComponent(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++;
+            }
+            return paramValue == "" && (paramValue = null), paramValue;
+        }
+    	function gobackFU (){
+       	  window.location.href = "recortwo.html?id=" + id;
+       	}
+    </script>
+</body>
+
+</html>

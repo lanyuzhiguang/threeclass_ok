@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>会议通知</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../moduleweb/resources/plugins/toastr/toastr.min.css" />
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #F0F2F5;
+        }
+        
+        .page-top {
+            background-color: #FFFFFF;
+            padding: 16px;
+            padding-left: 28px;
+        }
+        
+        .back {
+            cursor: pointer;
+            font-weight: 400;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        
+        .pagetitle {
+            padding-top: 12px;
+            color: rgba(0, 0, 0, 0.847058823529412);
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 28px;
+        }
+        
+        .meeting-content {
+            margin-top: 24px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+            background-color: #FFFFFF;
+        }
+        
+        .read-content {
+            margin-left: 28px;
+            width: 90.39%;
+            text-align: left;
+        }
+        
+        table {
+            width: 100%;
+        }
+        
+        .thead {
+            height: 55px;
+            line-height: 55px;
+            background-color: #FAFAFA;
+            border: 1px solid#E8E8E8;
+            color: #262626;
+            font-weight: 700;
+        }
+        
+        .titem {
+            height: 55px;
+            background-color: #FFFFFF;
+            border: 1px solid#E8E8E8;
+            color: #5A5A5A;
+            font-weight: 400;
+            border-top: 0;
+        }
+        
+        .name-title {
+            padding-left: 17px;
+        }
+        
+        td {
+            padding-right: 30px;
+        }
+        
+        #readpage {
+            margin-top: 20px;
+            float: right;
+            padding-right: 15px;
+        }
+        
+        .layui-laypage .layui-laypage-curr .layui-laypage-em {
+            background-color: #1890FF;
+            border-radius: 4px;
+        }
+        
+        .layui-laypage a,
+        .layui-laypage span {
+            margin-right: 4px;
+            border-radius: 4px;
+            background: none;
+        }
+        
+        .layui-laypage-count {
+            border: none !important;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .layui-laypage span {
+            color: #5A5A5A;
+            font-weight: 400;
+        }
+        
+        .layui-laypage-limits {
+            border: none !important;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .layui-laypage-skip {
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .layui-laypage input {
+            width: 30px;
+            padding: 0;
+        }
+        
+        .layui-laypage-limits select {
+            border: 1px solid#CCCCCC;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        
+        .layui-input,
+        .layui-textarea {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-top">
+        <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+        <div class="pagetitle">通知未读</div>
+    </div>
+    <div class="meeting-content read-content">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr class="thead">
+                    <th class="name-title">姓名</th>
+                    <th>所属支部</th>
+                    <th>已通知次数</th>
+                </tr>
+            </thead>
+            <tbody class="list">
+                <tr class="titem">
+                    <td class="name-title name"></td>
+                    <td style="width: 55%;" class="section"></td>
+                    <td class="num"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="readpage"></div>
+    </div>
+
+
+
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../layui/layui.all.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+    <script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var id = getParam("id");
+        var titem = $(".titem")
+        titem.remove();
+        var pagea = 1; //开始页数
+        var sizea = 20; //每页最多显示条数
+        var nowpagea = 1; //当前页数
+        var pagesa = 0; //总数
+        $(function() {
+            xuanran()
+        })
+
+        function xuanran() {
+            $.get(_ctxPath + "conference/detail/queryByConfer.action", {
+                "conference._id": id,
+                "state|integer": 0,
+                "page": nowpagea, //当前页数
+                "size": sizea,
+            }, function(data) {
+                $(".list").html("");
+                var arr = data.data.data;
+                pagesa = data.data.total;
+                pagea = data.data.page;
+                if (arr.length > 0) {
+                    $(arr).each(function() {
+                        var item = titem.clone();
+                        item.find(".name").text(this.userName);
+                        item.find(".section").text(this.bumenName);
+                        item.find(".num").text(this.sendCount)
+                        $(".list").append(item);
+                    })
+                }
+                pagepeozhi()
+            })
+        }
+
+        function pagepeozhi() {
+            layui.use(['laypage', 'layer'], function() {
+                var laypage = layui.laypage,
+                    layer = layui.layer;
+                laypage.render({
+                    elem: 'readpage',
+                    count: pagesa,
+                    curr: nowpagea,
+                    limit: sizea,
+                    layout: ['count', 'prev', 'page', 'next', 'skip'],
+                    jump: function(obj, first) {
+                        nowpagea = obj.curr;
+                        pagea = (obj.curr - 1) * sizea;
+                        if (!first) { //一定要加此判断，否则初始时会无限刷新
+                            xuanran(); //一定要把翻页的ajax请求放到这里，不然会请求两次。
+                            location.href = '#top';
+                        }
+                    }
+                });
+            });
+        }
+
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = decodeURIComponent(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++;
+            }
+            return paramValue == "" && (paramValue = null), paramValue;
+        }
+    </script>
+</body>
+
+</html>

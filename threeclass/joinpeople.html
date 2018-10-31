@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        .nav-tabs {
+            height: 58px;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+        }
+        
+        .aw-nav-tabs>li {
+            padding: 0px;
+        }
+        
+        .aw-nav-tabs>li>a {
+            color: #6D6969;
+            padding: 0 20px;
+            background-color: none;
+            border: none;
+            cursor: pointer;
+            line-height: 47px;
+            margin: 0 24px;
+        }
+        
+        .nav-tabs>li>a:focus,
+        .nav-tabs>li>a:hover {
+            background: none;
+            border-bottom: 1px solid #209CFF;
+            color: #209CFF;
+        }
+        
+        .nav-tabs>li.active>a,
+        .nav-tabs>li.active>a:focus,
+        .nav-tabs>li.active>a:hover {
+            line-height: 30px;
+            background-color: #fff;
+            border: none;
+            border-bottom: 1px solid #209CFF;
+            font-weight: 700;
+            color: #209CFF;
+            line-height: 47px;
+            cursor: pointer;
+        }
+        
+        .back {
+            cursor: pointer;
+            padding-left: 28px;
+            background-color: #FFFFFF;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container clearfix" style="width: 1136px; ">
+        <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+        <ul class="nav nav-tabs aw-nav-tabs">
+            <li><a href="#">我的待办</a></li>
+            <li><a href="#">我的发起</a></li>
+            <li class="active"><a href="#myjoin">我的参与</a></li>
+        </ul>
+
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(".navitem").each(function() {
+                this.addEventListener("click", function() {
+                    $(".navitem").removeClass('active');
+                    this.addClass("active");
+                })
+            })
+            //			mui.init();
+            ////			mui.plusReady(function() {
+            //			$(".meetingitem").each(function() {
+            //				this.addEventListener("click",function(){
+            //					osg.open("meetingdetail.html","meetingdetail.html")
+            //				})
+            //			})
+    </script>
+</body>
+
+</html>

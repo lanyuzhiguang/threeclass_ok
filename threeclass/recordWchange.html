@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>新建变更</title>
+   <link rel="stylesheet" type="text/css" href="../../resources/plugins/ztree/zTreeStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../moduleweb/resources/plugins/bootstrap-select/bootstrap-select.min.css"/>
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../moduleweb/resources/plugins/toastr/toastr.min.css"/>
+  	<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css"/>
+  	<link rel="stylesheet" type="text/css" href="../../css/layer.css"/>
+    <link href="js/wangEditor/css/wangEditor.css" rel="stylesheet" />
+    <style type="text/css">
+    	*{
+    		font-family:"苹方","冬青黑体简体中文","微软雅黑","宋体",Arial,sans-serif;
+    	}
+        body {
+            background-color: #F0F2F5;
+        }
+        .page-top{
+        	background-color: #FFFFFF;
+        	padding:16px;
+        	padding-left: 28px;
+        }
+        .back{
+            cursor: pointer;
+            font-weight: 400;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        .pagetitle{
+        	padding-top: 12px;
+        	color: rgba(0, 0, 0, 0.847058823529412);
+        	font-size: 20px;
+        	font-weight: 700;
+        	line-height: 28px;
+        }
+        .content{
+            margin: 0 28px;
+            margin-top: 24px;
+            background-color: #FFFFFF;
+            padding: 0 32px;
+        }
+        .meeting-content{
+            line-height: 22px;
+            padding-top: 24px;
+            padding-bottom: 12px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .base-title{
+            font-size: 16px;
+            font-weight:600;
+            color: #272727;
+            border-bottom: 1px solid#E9E9E9;
+            line-height: 55px;
+        }
+        .content-item{
+        	width: 22.7%;
+        	margin-right: 72px;
+        }
+        .iconfont{
+        	color: #FF2727;
+        }
+        .name{
+        	color: #272727;
+        }
+        .content-item-wrap{
+        	width: 100%;
+        	padding-top: 18px;
+        	position: relative;
+        	
+        }
+        .content-item-wrap input{
+        	width: 100%;
+        	color: #5A5A5A;
+        	border: 1px solid rgba(0, 0, 0, 0.247058823529412);
+        	border-radius: 4px;
+        	height: 32px;
+        	padding-left: 10px;
+        }
+        .leave-content-top{
+        	width: 100%;
+        	display: flex;
+        	justify-content: flex-start;
+        }
+        .content-wrap{
+        	width: 100%;
+        }
+        .leave-cause{
+        	min-height: 140px;
+        	text-align: left;
+        	width: 100%;
+        	color: rgba(0, 0, 0, 0.247058823529412);
+        	border: 1px solid rgba(0, 0, 0, 0.247058823529412);
+        	border-radius: 4px;
+        	height: 32px;
+        	padding-left: 10px;
+        }
+        
+        .form-control{
+	        width: 100%;
+	    	color: #5A5A5A;
+	    	border: 1px solid rgba(0, 0, 0, 0.247058823529412);
+	    	border-radius: 4px;
+	    	height: 32px;
+	    	padding-left: 10px;	
+        }
+        .leave-content-top{
+        	padding-bottom: 24px;
+        }
+        .dataImg{
+        	position: absolute;
+        	right:10px;
+        	top: 26px;
+        }
+        .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+        	background: none;	
+        }
+        .xuanfont{
+        	font-size: 15px;
+        	color: #199ED8;
+        	cursor: pointer;
+        	padding-left: 10px;
+        }
+        #editor-trigger{
+			padding-top: 10px;
+			width: 100%;            
+			min-height:300px;
+		}
+		.wangEditor-menu-container{
+			background-color: #F2F2F2;
+			border-bottom: 1px solid#CCCCCC ;
+		}
+		#meetingcontent{
+			width: 100%;            
+			min-height:300px;
+		}
+		.meeting-content-img{
+			display: flex;
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			height: auto;
+			padding-bottom: 20px;
+		}
+		.imgItem {
+			width: 9.774%;
+			height: 100px;
+			margin-right: 1.504%;
+			position: relative;
+		}
+		.meeting-content-img img{
+			width:100%;
+			height: 100px;
+			display: block;	
+		}
+		.del{
+			position: absolute;
+			width: 17px!important;
+			height:17px;
+			right:0;
+			top:0;
+		}
+		.del img {
+			width: 17px!important;
+			height: auto;
+			right: 0;
+			bottom:0;
+		}
+		.fileImg{
+			 width: 9.774%;
+			 margin-right: 1.504%;
+			 display: block;
+		     height: 100px;
+		     border: 1px dashed #ddd;
+		     text-align: center;
+		     position: relative;
+	    }
+		.fileImg i{
+			line-height: 100px;
+			color: #ddd;
+			font-size: 40px;
+		}
+		.fileImg input{
+			position: absolute;
+	        left: 0px;
+	        top: 0px;
+	        height: 100%;
+	        opacity: 0;
+	        -ms-filter: 'alpha(opacity=0)';
+		}
+		.fileinput-button {
+	        position: relative;
+	        display: inline-block;
+	        overflow: hidden;
+	        color: #5A5A5A;
+	        background-color:none;
+	        border-radius: 5px;
+	        padding: 8px 15px;
+	        border: 1px solid #D9D9D9;
+	        width: 110px;
+	        height: 44px;
+	    }
+	    .fileinput-button input{
+	        position: absolute;
+	        left: 0px;
+	        top: 0px;
+	        height: 100%;
+	        opacity: 0;
+	        -ms-filter: 'alpha(opacity=0)';
+	    }
+	    .progress{
+	    	width: 200px;
+	    	height: 12px;
+	    	border: 1px solid #ccc;
+	    	border-radius: 4px;
+	    }
+	    .progressSon{
+	    	height: 12px;
+	    	width: 0%;
+	    	color: #fff;
+	    	font-size: 14px;
+	    	line-height: 12px;
+	    	text-align: center;
+	    	background-color: limegreen;
+	    }
+	    .fileUtil,.kuozhan{
+	    	color: #CCCCCC;
+	    }
+	    .btn{
+	    	margin-top: 24px;
+	    	background-color: #FFFFFF;
+	    	width: 100%;
+	    	text-align: center;
+	    }
+	    .cancel{
+	    	width: 70px;
+	        height: 40px;
+	        font-size: 16px;
+	        border: 1px solid#E9E9E9;
+	        background-color: #FFFFFF;
+	        color: rgba(0, 0, 0, 0.647058823529412);
+	        border-radius: 4px; 
+	        margin-right: 13px; 	
+	    }
+	    .confirm{
+	    	width: 70px;
+	        height: 40px;
+	        font-size: 16px;
+	    	border: 1px solid#1890FF;
+	    	border-radius: 4px;
+	        color: #FFFFFF;
+	        background-color: #1890FF;
+	    }
+	     a{
+	    	color: #CCCCCC;	
+	    }
+	    a:hover{
+	    	text-decoration: none;
+	    	color: #CCCCCC;
+	    }
+	    .icon-fujian{
+	    	padding-right: 10px;
+	    } 
+	    .icon-1{
+	    	font-size: 18px;
+	    	color: #CCCCCC;
+	    }
+	    .icon-fujian{
+	    	color: #CCCCCC;
+	    } 
+	    .funjianitem{
+	    	position: relative;
+	    }
+    	.canlefile{
+			position: absolute;
+			width: 17px!important;
+			height:17px;
+			right:0;
+			top:0;
+		}
+		.canlefile img {
+			width: 17px!important;
+			height: auto;
+		}
+		
+		.sctiontree{
+			width:300px;
+			overflow-x: auto;
+			overflow-y: scroll;
+			z-index: 99999;
+			position: absolute;
+			background-color: #F8F8F8;
+		}
+		.sctiontree2{
+			width:300px;
+			overflow-x: auto;
+			overflow-y: scroll;
+			z-index: 99999;
+			position: absolute;
+			background-color: #F8F8F8;
+		}
+		.shadel{
+        	position: absolute;
+        	right: 0;
+        	bottom:0;
+        	top:0px;
+        	left:0;
+        	background-color:rgba(152, 139, 139, 0.2);
+        	z-index: 998;
+        }
+        .sctiontree{
+        	background-color: #FFFFFF;
+        	width: 350px;
+            min-height: 400px;
+        	position: absolute;
+        	top:200px;
+        	bottom:200px;
+        	right: 0;
+        	left: 0;
+        	margin: auto;
+        	padding: 15px;
+        	z-index: 9999999;
+        	overflow-y: auto;
+        	overflow-x: auto;
+        	box-shadow: 0px 4px 12px rgba(152, 139, 139, 0.447058823529412)
+        }
+        .treebtns{
+        	padding-top: 20px;
+        	width: 100%;
+        	position: relative;
+        	bottom: 10px;
+        	text-align: right;
+        	padding-right: 10px;
+        }
+        .treebtns button{
+        	width: 70px;
+        	height: 32px;
+        	text-align: center;
+        	line-height: 32px;
+        	border-radius: 4px;
+        	
+        }
+        .sctiontree-ttitle{
+        	padding-top: 15px;
+        	font-size: 16px;
+        	color: #5A5A5A;
+        	padding-left: 15px;
+        }
+        .bluebtn{
+			background-color: #1890FF;
+        	border: 1px solid#1890FF;
+        	color: #FFFFFF;	
+		}
+		.writebtn{
+			background-color: #FFFFFF;
+			border: 1px solid#E9E9E9;
+			color: #5A5A5A;
+		}
+		.noOption{
+			color: #E9E9E9;
+		}       
+    </style>
+</head>
+<body>
+<div class="new-content" >
+	<div class="page-top">
+		<div class="back" onclick="history.back(-1)">&laquo;返回</div>
+		<div class="pagetitle">新建三会一课-会议详情</div>
+	</div>
+    <div class="content">
+        <div class="base-title">基本信息</div>
+        <div class="meeting-content leave-content">
+        	<div class="leave-content-top">
+        		<div class="content-item">
+                  	<div class="content-item-title">
+                  		<span class="iconfont">*</span>
+                  		<span class="name">分类</span>
+                  	</div>
+                  	<div class="content-item-wrap">
+	                    <select class="selectlist form-control" >
+	                        <option class="meettypeitem " value=""></option>
+	                    </select>	
+                  	</div>
+                </div>
+                 <div class="content-item">
+                  	<div class="content-item-title">
+                  		<span class="iconfont">*</span>
+                  		<span class="name">主持人</span>
+                  	</div>
+                  	<div class="content-item-wrap">
+                  		<input type="" name="" id="" value="" placeholder="请填写主持人" class="zhuchi"/>
+                  	</div>
+                </div>
+        	    <div class="content-item">
+                  	<div class="content-item-title">
+                  		<span class="iconfont">*</span>
+                  		<span class="name">会议地点</span>
+                  	</div>
+                  	<div class="content-item-wrap">
+                  		<input type="" name="" id="" value="" placeholder="请输入会议地点" class="meetsite"/>
+                  	</div>
+                </div>
+        	</div>
+        	<div class="leave-content-top">
+        		<div class="content-item">
+                  	<div class="content-item-title">
+                  		<span class="iconfont">*</span>
+                  		<span class="name">标题</span>
+                  	</div>
+                  	<div class="content-item-wrap">
+                  		<input type="" name="" id="" value="" placeholder="请输入会议标题" class="meetTitle"/>
+                  	</div>
+                </div>
+        		<div class="content-item">
+                  	<div class="content-item-title">
+                  		<span class="iconfont">*</span>
+                  		<span class="name">开始时间</span>
+                  	</div>
+                  	<div class="content-item-wrap">
+                  		 <input type="text" class="layui-input" id="datetimeStart" placeholder="请选择开始时间">
+				        <img src="img/calendar.png" class="dataImg"/>
+                  	</div>
+                </div>
+                <div class="content-item">
+                  	<div class="content-item-title">
+                  		<span class="iconfont">*</span>
+                  		<span class="name">结束时间</span>
+                  	</div>
+                  	<div class="content-item-wrap">
+                    	<input type="text" class="layui-input" id="datetimeEnd" placeholder="请选择结束时间">
+						<img src="img/calendar.png" class="dataImg" />
+                  	</div>
+                </div>
+        	    
+        	</div>
+            <div class="leave-content-top">
+            	 <div class="content-item">
+                  	<div class="content-item-title">
+                  		<span class="iconfont">*</span>
+                  		<span class="name">记录人</span>
+                  	</div>
+                  	<div class="content-item-wrap">
+                  		<input type="" name="" id="" value="" placeholder="请填写记录人员" class="jilu"/>
+                  	</div>
+                </div>
+        		<div class="content-item content-item-bumen">
+                  	<div class="content-item-title">
+                  		<span class="iconfont">*</span>
+                  		<span class="name">组织部门</span>
+                  	</div>
+                  	<div class="content-item-wrap xuanfont xuanbumen" onclick="showMenu()">请选择</div>
+					
+                </div>
+                <div class="content-item content-item-people">
+                  	<div class="content-item-title">
+                  		<span class="iconfont">*</span>
+                  		<span class="name">参与人员</span>
+                  	</div>
+                  	<div class="content-item-wrap xuanfont peopleselect" onclick="showMenu2()">请选择</div>
+                  	
+                  	
+                </div>
+        	</div>
+        </div>
+    </div>
+    <div class="content">
+    	<div class="base-title">会议内容</div>
+        <div class="meeting-content leave-content">
+        	<div class="leave-content-top">
+        		<div id="editor-trigger" contenteditable="false">
+        			<textarea name="" rows="" cols=""  placeholder="在这里输入正文" id="meetingcontent"></textarea>
+	           </div>
+        	</div>
+        </div>
+    </div>
+   	<div class="content">
+		<div class="meeting-img">
+	    	<div class="base-title">图片</div>
+	    	<div class="meeting-content meeting-content-img upimglist liveimglist">
+			   <div class="fileImg">
+					<input type="file" name="myfile" id="myfile" add=".upimglist" value="选择上传文件" onchange="fileChange(this,'image',true,5242880)" />
+					<i class="iconfont icon-jia"></i>
+				</div>
+	    	</div>
+	   </div>
+	</div>
+	<div class="content">
+		<div class="base-title">上传会议材料</div>
+		<div class="meeting-content">
+			<span class="fileinput-button">
+				<span>上传</span>
+				<span class="iconfont icon-1"></span>
+				<input type="file" name="myfile" add=".upfilelist" id="myfile" value="选择上传文件" onchange="fileFUN(this,true,20971520)" />
+		    </span>
+			<div class="kuozhan">支持扩展名：.pdf .doc .docx .xls .xlsx .ppt .pptx</div>
+			<div class="fileUtil upfilelist"></div>
+		</div>	
+	</div>
+	<div class="btn">
+		<button class="cancel" onclick="history.back(-1)">取消</button>
+		<button class="confirm" onclick="goupmeet()">下一步</button>
+	</div>
+	
+</div>
+<!--罩1-->
+<div class="shadelone shadel" style="display: none;">
+ <div class="sctiontree sctiontree" >
+ 	<div class="sctiontree-ttitle">组织部门选择</div>
+	<ul id="treeDemo1" class="ztree"></ul>
+	<div class="treebtns">
+		<button onclick="clearone()" class="writebtn">取消</button>
+		<button onclick="hideMenu()" class="bluebtn">确定</button>
+	</div>
+</div>
+</div>
+<!--罩二-->
+<div class="shadeltwo shadel" style="display: none;">
+  	 <div class="sctiontree2 sctiontree" >
+  	 	<div class="sctiontree-ttitle">参与人员选择：</div>
+    	<ul id="treeDemo2" class="ztree"></ul>
+    	<div class="treebtns">
+    		<button onclick="cleartwo()" class="writebtn">取消</button>
+			<button onclick="hideMenu2()" class="bluebtn">确定</button>
+    	</div>
+    </div>
+</div>
+<!--附件-->
+<div class="funjianitem" style="display: none; ">
+	<a href="" class="ahref" target="_blank">
+		<span class="iconfont icon-fujian"></span>
+		<span class="filename">名字</span>
+	</a>
+	<div class="progress">
+		<div class="progressSon"></div>
+	</div>
+	<div class="canlefile" onclick="cancleupf(this)"><img src="img/cha.png" ></div>
+</div>
+
+<!--img-->
+<div class="imgItem" style="display: none;">
+	<span class="del"><img src="img/cha.png"></span>
+	<img  class="needimg" src="" goimgup="">
+</div>
+<script src="../../resources/js/jquery.min.js"></script>
+<script src="../../resources/js/bootstrap.min.js"></script>
+<script src="js/wangEditor/js/wangEditor.min.js"></script>
+<script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+<script src="../../../moduleweb/resources/plugins/qiniu.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/uploadFile.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/plugins/layer/layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../../resources/plugins/ztree/jquery.ztree.core.min.js"></script>
+<script src="../../resources/plugins/ztree/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../../layui/layui.all.js"></script>
+<script type="text/javascript">
+	var E = window.wangEditor;
+    var editor = new E('meetingcontent');
+    editor.create();
+</script>
+<script type="text/javascript">
+    	layui.use('laydate', function(){
+         var laydate = layui.laydate;
+          laydate.render({
+		    elem: '#datetimeStart'
+		    ,type: 'datetime'
+		  });
+		  laydate.render({
+		    elem: '#datetimeEnd'
+		    ,type: 'datetime'
+		  });
+		  })
+</script>
+<script type="text/javascript">
+	var meetid = getParam("id");
+	var fileImg = $(".fileImg");
+	var funjianitem = $(".funjianitem");
+	var btnone =true;
+	var imgItem =$(".imgItem");
+	var liveArr = [];
+	var funameArr= [];
+	var fuidArr = [];
+	var conferId = "";
+	var selectP = $(".selectP");
+	var onlyone = true;
+	$(function(){
+			//获得类型
+			var meettypeitem = $(".meettypeitem");
+			meettypeitem.remove()
+			 $.get(_ctxPath+"conference/type/findTypes.action",{type:1},function(data){
+			 	var meetTypearr = data.data;
+			 	if(meetTypearr.length>0){
+			 		$(meetTypearr).each(function(){
+			 		var item =meettypeitem.clone();
+			 		item.text(this.name);
+			 		item.val(this._id);
+			 		$(".selectlist").append(item)
+			 	})
+			 	}
+			 })
+			 if(meetid){
+			 	 $.get(_ctxPath+"conference/findById.action",{"conferId":meetid},function(data){
+			 	 	var changemeetdetail = data.data;
+			 	 	conferId = meetid;
+			        $(".meetTitle").val(changemeetdetail.title);
+					$(".meetsite").val(changemeetdetail.address);
+					$("#datetimeStart").val(changemeetdetail.formatAttendtime);
+				    $("#datetimeEnd").val(changemeetdetail.formatEndTime);
+					$(".selectlist option:selected").val(changemeetdetail.meetType);
+					$(".selectlist option:selected").text(changemeetdetail.meetTypeName);
+			 	 	editor.$txt.html(changemeetdetail.content);
+			 	 	$(".xuanbumen").text(changemeetdetail.forbumname);
+			 	 	$(".xuanbumen").attr("id",changemeetdetail.forBumenId);
+			 	 	var changpeoplenum = changemeetdetail.toConferUser.length;
+                    var changestarname = changemeetdetail.toConferUser[0].name;
+                   $(".peopleselect").text(changestarname+"等"+changpeoplenum+"人");
+                   peoplearrid = changemeetdetail.toConferUserIds;
+                   $(".jilu").val(changemeetdetail.noteTakerName);
+		           $(".zhuchi").val(changemeetdetail.hostName);
+                    
+                    //图片
+		if(changemeetdetail.imageUrls.length>0){
+			if(changemeetdetail.imageUrls.length==9){
+			$(".liveimglist").find(".fileImg").remove();
+		}	
+		var goimguparr =changemeetdetail.imageUrls;
+			$(changemeetdetail.imageUrls).each(function(index,key){
+				var item = imgItem.clone().css("display","");
+				item.find(".needimg").attr("src",key);
+				item.find(".needimg").attr("goimgup",goimguparr[index])
+				
+				item.find(".del").off("click").on("click",function(){
+        			item.remove();
+        			if (index==8) {
+        				$(".liveimglist").find(".fileImg").remove();
+        				$(".liveimglist").prepend(fileImg);
+        			}
+        		})
+				$(".liveimglist").append(item);
+							
+			})
+		}
+		//会议附件
+		var Furl = changemeetdetail.fileUrls;
+		var Fname =changemeetdetail.fileNames;
+		var Fid =changemeetdetail.fileIds
+		if(Furl.length>0){
+			$(Furl).each(function(index,key){
+				var item = funjianitem.clone().css("display","");
+				item.find(".ahref").attr("href",key);
+        		item.find(".ahref").attr("download",Fname[index]);
+        		item.find(".filename").text(Fname[index]);
+        		item.find(".filename").attr("flieid",Fid[index]);
+        		item.find(".progress").css("display","none");
+        		item.find(".canlefile").css("display","none");
+				$(".upfilelist").append(item);
+							
+			})
+		}
+			 	 })
+			 	 
+	
+            }
+		})
+	function goupmeet(){
+		var meetTitle = $(".meetTitle").val();
+		var meetsite = $(".meetsite").val();
+		var datetimeStart = $("#datetimeStart").val();
+		var datetimeEnd = $("#datetimeEnd").val();
+		var meetType = $(".selectlist option:selected").val();
+		var meetName = $(".selectlist option:selected").text();
+		var content = editor.$txt.html();
+		var onlycontent = editor.$txt.formatText();
+		var jilup = $(".jilu").val();
+		var zhuchip = $(".zhuchi").val();
+		//图片
+		var liveimgall = $(".liveimglist").find(".needimg");
+		$(liveimgall).each(function(){
+			liveArr.push($(this).attr("goimgup"));
+		})
+		//附件
+		var upfileall = $(".upfilelist").find(".funjianitem");
+		$(upfileall).each(function(){
+			var fileid= $(this).find(".filename").attr("flieid");
+			fuidArr.push(fileid);
+			var filename = $(this).find(".filename").text();
+			funameArr.push(filename);
+		})
+		//部门id
+		var upsectionid = $(".xuanbumen").attr("id");
+		var upsectionname =$(".xuanbumen").text(); 
+		//人
+		var uppeopleIDs = peoplearrid.toString();
+//		附件
+         var fuids = fuidArr.toString();
+         var funames = funameArr.join("/");
+//       imgs
+          var imgs = liveArr.toString();
+          if (meetTitle&&meetType&&meetName&&datetimeStart&&datetimeEnd&&meetsite&&upsectionid&&uppeopleIDs&&onlycontent&&zhuchip&&jilup) {
+          	if (onlyone) {
+          		$.post(_ctxPath+"conference/upBasic.action",{
+					"_id":conferId,
+				    "title":meetTitle,
+				    "meetType":meetType,
+				    "meetTypeName":meetName,
+				    "attendtime":datetimeStart,
+				    "endTime":datetimeEnd,
+				    "address":meetsite,
+				    "forbumname":upsectionname,
+				    "forBumenId":upsectionid,
+				    "userIds":uppeopleIDs,
+				    "content":content,
+				    "imges":imgs,
+					"fleIds":fuids,
+					"fleNames":funames,
+					"hostName":zhuchip,
+					"noteTakerName":jilup,
+				    "type":102
+				  },function(data){
+				  		if (data.success) {
+				  			onlyone= false;
+				    		var id = data.data._id
+				     		window.location.href="recortwo.html?id="+id;
+				  		} 
+				  		else{
+				  			toastr.success(data.message);	
+
+				  		}
+				})
+            } 
+            else{
+          	    toastr.success("请勿重复点击！");
+            }	
+        } 
+          else{
+          	toastr.success("请完整填写基本信息！");	
+        }
+          	
+	}
+	
+		function getParam(paramName) { 
+    paramValue = "", isFound = !1; 
+    if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) { 
+        arrSource = decodeURIComponent(this.location.search).substring(1, this.location.search.length).split("&"), i = 0; 
+        while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++; 
+    } 
+    return paramValue == "" && (paramValue = null), paramValue ;
+}
+</script>
+<script type="text/javascript">
+	//部门
+	   var zNodes = [];
+	   var setting = {
+			view: {
+				selectedMulti: false
+			},
+			check: {
+				enable: true,
+				chkStyle: "radio",
+				radioType: "all"
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeCheck: beforeCheck,
+				onCheck: onCheck
+			}
+		};
+	    var code, log, className = "dark";
+		function beforeCheck(treeId, treeNode) {
+			className = (className === "dark" ? "":"dark");
+             if (treeNode.checked) {
+               	return false;
+              }
+             return true;
+		}
+		function onCheck(e, treeId, treeNode) {
+			$(".xuanbumen").text(treeNode.name);
+			$(".xuanbumen").attr("id",treeNode.id)
+		}
+		function showMenu() {
+              $(".shadelone").css("display","");
+               $.get(_ctxPath+"zTreeData/queryTreeByCode.action",{actCode:"addnotice"},function(data){
+				 	if(data){
+				 		var zNodes = data;
+				 		$(zNodes).each(function(){
+			          	this.icon = "img/bumen.png"
+			          	if(this.typea=="1"||this.typea=="2"){
+			          		this.chkDisabled =true
+			          	}
+			         })
+				 		var zTree = $.fn.zTree.init($("#treeDemo1"),setting,zNodes)
+				 		var node = zTree.getNodeByParam("id",0)
+				 	}
+	 			})
+//            $("body").bind("mousedown", onBodyDown);   
+         }
+		function clearone (){
+			 $(".shadelone").css("display","none");
+		}
+     	function hideMenu() {
+               $(".shadelone").css("display","none");
+//            $("body").unbind("mousedown", onBodyDown);
+              buid = $(".xuanbumen").attr("id")
+              if(showpeotreeid==buid){
+              }
+              else{
+	            $(".peopleselect").text("请选择");
+			    peoplearr= [];
+			    peoplearrid= [];
+              }
+          }
+//		function onBodyDown(event) {
+//            if (!( $(event.target).parents(".sctiontree").length > 0)) {
+//                hideMenu();
+//            }
+//        }
+  
+</script>
+<script>
+//	选人
+var showpeotreeid ="";
+var popleNodes = [];
+var peoplearr = [];
+var peoplearrid= [];
+var xuanbuid = "";
+var zTree2;
+var setting2 = {
+			view: {
+				selectedMulti: false
+			},
+			check: {
+				enable: true,
+				chkStyle: "checkbox",
+				radioType: "level"
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			
+		};
+	function xuanpeo(){
+		showpeotreeid = xuanbuid
+	 $.get(_ctxPath+"zTreeData/findIBAUser.action",{"bumenId":xuanbuid},function(data){
+	 	if(data.data){
+	 		popleNodes = data.data;
+	 		$(popleNodes).each(function(ind,val){
+			if(val.isParent==true){
+	 			val.icon = "img/bumen.png"
+	 		}
+   			else{
+   				this.icon = "img/po.png";
+// 				var item =selectP.clone();
+//			 		item.text(this.name);
+//			 		item.val(this._id);
+//			 		$(".jilulist").append(item.clone());
+//			 		$(".zhuchilist").append(item.clone())
+   			}
+   			if (peoplearrid.indexOf(this.id) != -1) {
+                this.checked = true;
+             }
+         })
+	 		zTree2 = $.fn.zTree.init($("#treeDemo2"),setting2,popleNodes)
+	 		var node = zTree2.getNodeByParam("id",0)
+	 	}
+	 })
+	}
+	function count() {
+	checkCount = zTree2.getCheckedNodes(true);
+	   peoplearr = [];
+      peoplearrid= [];
+		$(checkCount).each(function(){
+			if(this.isParent==false){
+				var checkpeoObj = {};
+				checkpeoObj.id = this.id;
+				checkpeoObj.name =this.name;
+				peoplearr.push(checkpeoObj)
+				peoplearrid.push(this.id)
+			}
+		})
+	}
+	 function showMenu2() {
+            xuanbuid = $(".xuanbumen").attr("id")
+            if (!xuanbuid) {
+                toastr.success("请选择部门！");
+            }
+            else{
+            	$(".shadeltwo").css("display", "");
+            xuanpeo()
+            }
+//          $("body").bind("mousedown", onBodyDown2);
+       }
+	 function cleartwo(){
+	 	 $(".shadeltwo").css("display","none");
+	 }
+	function hideMenu2() {
+       $(".shadeltwo").css("display","none");
+       count()
+       var peoplenum = peoplearr.length;
+       var starname = peoplearr[0].name;
+       $(".peopleselect").text(starname+"等"+peoplenum+"人")
+//     $("body").unbind("mousedown", onBodyDown2);
+	}
+//	function onBodyDown2(event) {
+//    	if (!( $(event.target).parents(".sctiontree2").length > 0)) {
+//        hideMenu2();
+//    	}
+//	}
+
+</script>
+</body>
+</html>

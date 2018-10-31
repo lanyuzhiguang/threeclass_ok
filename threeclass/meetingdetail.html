@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>会议记录</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #F0F2F5;
+        }
+        
+        .nav-tabs {
+            height: 58px;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+            background-color: #FFFFFF;
+        }
+        
+        .aw-nav-tabs>li {
+            padding: 0px;
+        }
+        
+        .aw-nav-tabs>li>a {
+            color: #6D6969;
+            padding: 0 20px;
+            background-color: none;
+            border: none;
+            cursor: pointer;
+            line-height: 47px;
+            margin: 0 24px;
+        }
+        
+        .nav-tabs>li>a:focus,
+        .nav-tabs>li>a:hover {
+            background: none;
+            border-bottom: 1px solid #209CFF;
+            color: #209CFF;
+        }
+        
+        .nav-tabs>li.active>a,
+        .nav-tabs>li.active>a:focus,
+        .nav-tabs>li.active>a:hover {
+            line-height: 30px;
+            background-color: #fff;
+            border: none;
+            border-bottom: 1px solid #209CFF;
+            font-weight: 700;
+            color: #209CFF;
+            line-height: 47px;
+            cursor: pointer;
+        }
+        
+        .back {
+            cursor: pointer;
+            padding-left: 28px;
+            background-color: #FFFFFF;
+            font-size: 14px;
+        }
+        
+        .content {
+            margin: 0 28px;
+            margin-top: 24px;
+            background-color: #FFFFFF;
+            padding: 0 32px;
+        }
+        
+        .base-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #272727;
+            border-bottom: 1px solid#E9E9E9;
+            line-height: 55px;
+        }
+        
+        .base-title-item {
+            font-size: 14px;
+            color: #5A5A5A;
+        }
+        
+        .basemsg-content {
+            padding: 17px 0;
+        }
+        
+        .basemsg-row {
+            padding: 13px 0;
+        }
+        
+        .see {
+            color: #1890FF;
+            cursor: pointer;
+        }
+        
+        .meeting-content {
+            line-height: 22px;
+            padding-top: 24px;
+            padding-bottom: 12px;
+            width: 100%;
+        }
+        
+        .meeting-content-img {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            height: 104px;
+        }
+        
+        .meeting-content-img img {
+            width: 9.774%;
+            height: auto;
+            margin-right: 1.504%;
+            display: block;
+        }
+        
+        .meeting-content-fujian {
+            padding-bottom: 24px;
+        }
+        
+        .fujian {
+            margin-bottom: 150px;
+        }
+        
+        .fujian-item {
+            padding: 5px;
+        }
+        /*people*/
+        
+        .people-content {
+            margin: 0 28px;
+            margin-top: 24px;
+        }
+        
+        .people-title {
+            background-color: #FAFAFA;
+            font-size: 14px;
+            color: #262626;
+            border: 1px solid#E9E9E9;
+            line-height: 55px;
+            padding: 0 32px;
+        }
+        
+        .people-item {
+            background-color: #FFFFFF;
+            padding: 13px 17px;
+            height: 52px;
+            border-bottom: 1px solid#E9E9E9;
+            color: #5A5A5A;
+            font-size: 14px;
+        }
+        
+        .inform-title-item {
+            padding-left: 24px;
+        }
+        
+        .num {
+            color: #24A2FF;
+        }
+        
+        #informallpeople {
+            cursor: pointer;
+        }
+        
+        .shawde {
+            width: 314px;
+            height: 84px;
+            background-color: #FFFFFF;
+            padding-left: 14px;
+            z-index: 998;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            padding-top: 18px;
+            border-radius: 4px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.149019607843137);
+        }
+        
+        .shawde-title-all {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 24px;
+        }
+        
+        .icon-duihao {
+            color: #57D21B;
+            padding: 0 10px;
+            font-size: 16px;
+        }
+        
+        .shawde-title-num {
+            color: #929292;
+            font-size: 14px;
+            line-height: 22px;
+            padding-left: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class=" clearfix">
+        <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+        <ul class="nav nav-tabs aw-nav-tabs">
+            <li class="navitem" name="#meetingdetail"><a href="#">会议详情</a></li>
+            <li class="navitem" name="#meetingrecord"><a href="#">会议记录</a></li>
+            <li class="active navitem" name="#people"><a href="#">人员</a></li>
+        </ul>
+        <div class="meetingdetail allitem" id="meetingdetail" style="display:none;">
+            <div class="content">
+                <div class="basemsg">
+                    <div class="base-title">基本信息</div>
+                    <div class="basemsg-content">
+                        <div class="basemsg-row row">
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">标题:</span>
+                                <span class="basemsg-item-content">XXXXXXXX党支部第一次全体党员大会</span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">分类：</span>
+                                <span class="basemsg-item-content">支部党员大会</span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">会议状态：</span>
+                                <span class="basemsg-item-content">未开始</span>
+                            </div>
+                        </div>
+                        <div class="basemsg-row row">
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item ">开始时间：</span>
+                                <span class="basemsg-item-content">2018-10-08  11:00</span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">结束时间：</span>
+                                <span class="basemsg-item-content">2018-10-08  12:00</span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">会议地点：</span>
+                                <span class="basemsg-item-content">第一会议室</span>
+                            </div>
+                        </div>
+                        <div class="basemsg-row row">
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">组织部门：</span>
+                                <span class="basemsg-item-content">XXXXXXXXXXXXX党支部</span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">参与人员：</span>
+                                <span class="basemsg-item-content"><span>张三等</span><span>33</span>人</span>
+                                <span class="see" id="see">查看</span>
+                            </div>
+                            <div class="basemsg-item col-lg-4 col-md-4 col-sm-4">
+                                <span class="base-title-item">签到状态：</span>
+                                <span class="basemsg-item-content">未签到</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="meeting-container">
+                    <div class="base-title">会议内容</div>
+                    <div class="meeting-content basemsg-item-content">
+                    </div>
+                </div>
+
+            </div>
+            <div class="content">
+                <div class="meeting-img">
+                    <div class="base-title">图片</div>
+                    <div class="meeting-content meeting-content-img">
+                        <img src="img/left1.png" />
+                        <img src="img/left2.png" />
+                        <img src="img/left23.png" />
+                        <img src="img/left1.png" />
+                        <img src="img/left2.png" />
+                        <img src="img/left23.png" />
+                        <img src="img/left1.png" />
+                        <img src="img/left2.png" />
+                        <img src="img/left23.png" style="margin-right:0" />
+                    </div>
+                </div>
+            </div>
+            <div class="content fujian">
+                <div class="base-title">会议材料</div>
+                <div class="meeting-content meeting-content-fujian">
+                    <div class="fujian-item">
+                        <span class="iconfont icon-fujian"></span>
+                        <span>文档.docx</span>
+                    </div>
+                    <div class="fujian-item">
+                        <span class="iconfont icon-fujian"></span>
+                        <span>文档.docx</span>
+                    </div>
+                    <div class="fujian-item">
+                        <span class="iconfont icon-fujian"></span>
+                        <span>文档.docx</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="meetingrecord allitem" id="meetingrecord" style="display:none;">
+            <div class="content">
+                <div class="meeting-img">
+                    <div class="base-title">现场图片</div>
+                    <div class="meeting-content meeting-content-img">
+                        <img src="img/left1.png" />
+                        <img src="img/left2.png" />
+                        <img src="img/left23.png" />
+                        <img src="img/left1.png" />
+                        <img src="img/left2.png" />
+                        <img src="img/left23.png" />
+                        <img src="img/left1.png" />
+                        <img src="img/left2.png" />
+                        <img src="img/left23.png" style="margin-right:0" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="content">
+                <div class="meeting-container">
+                    <div class="base-title">会议记录</div>
+                    <div class="meeting-content basemsg-item-content">
+                    </div>
+                </div>
+
+            </div>
+            <div class="content fujian">
+                <div class="base-title">会议材料</div>
+                <div class="meeting-content meeting-content-fujian">
+                    <div class="fujian-item">
+                        <span class="iconfont icon-fujian"></span>
+                        <span>文档.docx</span>
+                    </div>
+                    <div class="fujian-item">
+                        <span class="iconfont icon-fujian"></span>
+                        <span>文档.docx</span>
+                    </div>
+                    <div class="fujian-item">
+                        <span class="iconfont icon-fujian"></span>
+                        <span>文档.docx</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="people allitem" id="people">
+            <div class="meeting-inform people-content">
+                <div class="people-title">
+                    <span id="informallpeople">会议通知</span>
+                    <span class="inform-title-item"><span>通知到达率</span><span>50%</span></span>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        通知未读（<span class="num">33</span>）
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span>张三、李四、张三、李四、张三、李四、张三、李四、张三、李四</span> 等
+                        <span>33</span>人
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        通知已读（<span class="num">33</span>）
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span>张三、李四、张三、李四、张三、李四、张三、李四、张三、李四</span> 等
+                        <span>33</span>人
+                    </div>
+                </div>
+            </div>
+            <div class="meeting-signin people-content">
+                <div class="people-title">
+                    <span>会议签到</span>
+                    <span class="inform-title-item"><span>会议出勤率</span><span>50%</span></span>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        已签到（<span class="num">33</span>）
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span>张三、李四、张三、李四、张三、李四、张三、李四、张三、李四</span> 等
+                        <span>33</span>人
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        未签到（<span class="num">33</span>）
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span>张三、李四、张三、李四、张三、李四、张三、李四、张三、李四</span> 等
+                        <span>33</span>人
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        迟到（<span class="num">33</span>）
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span>张三、李四、张三、李四、张三、李四、张三、李四、张三、李四</span> 等
+                        <span>33</span>人
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        请假（<span class="num">33</span>）
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span>张三、李四、张三、李四、张三、李四、张三、李四、张三、李四</span> 等
+                        <span>33</span>人
+                    </div>
+                </div>
+                <div class="people-item ">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        缺勤（<span class="num">33</span>）
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <span>张三、李四、张三、李四、张三、李四、张三、李四、张三、李四</span> 等
+                        <span>33</span>人
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="shawde" style="display: none;">
+        <div class="shawde-title">
+            <span class="iconfont icon-duihao"></span>
+            <span class="shawde-title-all">通知已发送完成</span>
+        </div>
+        <div class="shawde-title-num">
+
+            共发送通知
+            <<span>33</span>>条
+        </div>
+
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        //切换
+        $(".navitem").each(function() {
+            this.addEventListener("click", function() {
+                $(".navitem").removeClass('active');
+                $(this).addClass("active");
+                var show = $(this).attr("name");
+                $(".allitem").css("display", "none")
+                $(show).css("display", "block")
+            })
+        })
+        var see = document.getElementById("see")
+        see.addEventListener("click", function() {
+            osg.open("joinpeople.html", "joinpeople.html")
+        })
+        $("#informallpeople").click(function() {
+
+            })
+            //			mui.init();
+            ////			mui.plusReady(function() {
+            //			$(".meetingitem").each(function() {
+            //				this.addEventListener("click",function(){
+            //					osg.open("joinpeople.html","joinpeople.html")
+            //				})
+            //			})
+    </script>
+</body>
+
+</html>

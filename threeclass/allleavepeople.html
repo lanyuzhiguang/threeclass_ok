@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>请假管理</title>
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #F0F2F5;
+        }
+        
+        .mui-content {
+            background-color: #F0F2F5;
+        }
+        
+        .page-top {
+            background-color: #FFFFFF;
+            padding: 16px;
+            padding-left: 28px;
+        }
+        
+        .back {
+            cursor: pointer;
+            font-weight: 400;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        
+        .pagetitle {
+            padding-top: 12px;
+            color: rgba(0, 0, 0, 0.847058823529412);
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 28px;
+        }
+        
+        .content {
+            margin: 0 28px;
+            margin-top: 24px;
+            background-color: #FFFFFF;
+            padding: 0 32px;
+            position: relative;
+            padding-bottom: 60px;
+        }
+        
+        .rownav {
+            height: 84px;
+            padding: 26px 0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .input-item {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        .rownav-title {
+            margin: 0;
+            padding-right: 6px;
+            color: #333333;
+        }
+        
+        .col-meetingtitle {
+            width: 29.74%;
+            padding-left: 2.816%;
+        }
+        
+        .col-meetingtitle input {
+            padding-left: 10px;
+            width: 82.64%;
+            height: 32px;
+            border: 1px solid#D9D9D9;
+            border-radius: 4px;
+        }
+        
+        .col-section {
+            width: 28.19%;
+        }
+        
+        .col-section input {
+            padding-left: 10px;
+            width: 74.07%;
+            height: 32px;
+            border: 1px solid#D9D9D9;
+            border-radius: 4px;
+        }
+        
+        .col-satus {
+            width: 22.78%;
+        }
+        
+        .form-control {
+            padding-left: 10px;
+            height: 32px;
+            border: 1px solid#D9D9D9;
+            border-radius: 4px;
+            width: 61.1%;
+            color: #919191;
+        }
+        
+        .col-btns {
+            width: 150px;
+        }
+        
+        .checkbtn {
+            width: 50px;
+            height: 32px;
+            background-color: #1890FF;
+            border: 1px solid#1890FF;
+            border-radius: 4px;
+            color: #FFFFFF;
+        }
+        
+        .reset {
+            width: 50px;
+            height: 32px;
+            background-color: #FFFFFF;
+            border: 1px solid#D9D9D9;
+            border-radius: 4px;
+            color: #5A5A78;
+        }
+        
+        table {
+            width: 100%;
+        }
+        
+        tr {
+            border-bottom: 1px solid#E8E8E8;
+        }
+        
+        th {
+            background-color: #FAFAFA;
+            height: 54px;
+        }
+        
+        td {
+            height: 54px;
+            padding-right: 60px;
+            color: #5A5A5A;
+        }
+        
+        .iconfont {
+            font-size: 12px;
+        }
+        
+        .leaveitem {
+            color: #1890FF;
+   			cursor: pointer;
+        }
+        
+        #joinpage {
+            margin-top: 20px;
+            position: absolute;
+            right: 28px;
+            bottom: 0;
+        }
+        
+        .layui-laypage .layui-laypage-curr .layui-laypage-em {
+            background-color: #1890FF;
+            border-radius: 4px;
+        }
+        
+        .layui-laypage a,
+        .layui-laypage span {
+            margin-right: 4px;
+            border-radius: 4px;
+            background: none;
+        }
+        
+        .layui-laypage-count {
+            border: none !important;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .layui-laypage span {
+            color: #5A5A5A;
+            font-weight: 400;
+        }
+        
+        .layui-laypage-limits {
+            border: none !important;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .layui-laypage-skip {
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .layui-laypage input {
+            width: 30px;
+            padding: 0;
+        }
+        
+        .layui-laypage-limits select {
+            border: 1px solid#CCCCCC;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        
+        .layui-input,
+        .layui-textarea {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mui-content">
+        <div class="page-top">
+            <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+            <div class="pagetitle">请假管理</div>
+        </div>
+        <div class="content ">
+            <div class="rownav">
+                <div class="col-meetingtitle input-item">
+                    <span id="" class="rownav-title">姓名:</span>
+                    <input type="text" placeholder="请输入" class="name" />
+                </div>
+                <div class="col-section input-item">
+                    <span id="" class="rownav-title">所属支部:</span>
+                    <input type="text" placeholder="请输入" class="section" />
+                </div>
+                <div class="col-satus input-item">
+                    <span id="" class="rownav-title">审核状态:</span>
+                    <select class="selectlist form-control">
+                    <option value="4,6,7">请选择</option>
+                    <option value="4">批准请假</option>
+                    <option value="6">待审核</option>
+                    <option value="7" >驳回</option>
+                </select>
+                </div>
+                <div class="input-item col-btns">
+                    <button class="checkbtn" style="margin-left: 30px;" onclick="gocheck()">查询</button>
+                    <button class="reset" style="margin-left: 8px;" onclick="clearall()">重置</button>
+                </div>
+            </div>
+            <div class="tableList">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th style="padding-left:45px;">姓名
+                                <span class="iconfont icon-lisimoshicaidandaohang"></span></th>
+                            <th>所属支部</th>
+                            <th>申请时间</th>
+                            <th>审核状态<span class="iconfont icon-iconfont"></span></th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="leavelist">
+                        <tr class="peoitem" style="display: none;">
+                            <td style="padding-left:45px;" class="name"></td>
+	         			<td class="bumenname"></td>
+                            <td class="time"></td>
+                            <td><span class="iconfont icon-yuandian signin"></span><span class="state"> </span></td>
+	         			<td class="leaveitem" onclick="goFUN(this)"></td>
+                        </tr>
+                    </tbody>
+            </div>
+            <div id="joinpage"></div>
+        </div>
+
+    </div>
+
+
+
+    </div>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../layui/layui.all.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+    <script type="text/javascript">
+        var id = getParam("id");
+        var peoitem = $(".peoitem");
+        peoitem.remove();
+        var arr = [];
+        var pagea = 1; //开始页数
+    var sizea = 20;  //每页最多显示条数
+    var nowpagea = 1;  //当前页数
+    var pagesa = 0;
+    var mangestate = "4,6,7";
+    var selecname = "";
+	var	selectbumen = "";
+	$(function(){
+		 nowpage()
+	})
+   	
+
+	
+	//nowp形参当前页
+	function nowpage (nowp){
+		$(".leavelist").html("")
+		$.get(_ctxPath+"conference/detail/queryByConfer.action",{
+			"conference._id":id,
+			"page": nowpagea,
+			"size": sizea,
+			"in:state|array-integer":mangestate,
+			"regex:userName":selecname,
+			"regex:bumenName":selectbumen
+		},function(data){
+		pagea = data.data.page;//当前页数(后台返回)
+         pagesa = data.data.total;
+		arr =data.data.data;
+		$(arr).each(function(){
+			var item = peoitem.clone().css("display","").attr("id",this._id);
+         		item.find(".name").text(this.userName);
+         		item.find(".bumenname").text(this.bumenName);
+         		item.find(".time").text(this.createTime);
+         		var stateCon = JSON.parse(signstateFun(this.state));
+				item.find(".state").text(stateCon.txt);
+				item.find(".signin").css("color",stateCon.color);
+         		item.find(".leaveitem").text(stateCon.seeor).attr("mystate",this.state);
+         		$(".leavelist").append(item)
+		})
+		pagepeozhi()
+	})	
+		
+	}
+	function clearall(){
+		$(".name").val("");
+		$(".section").val("");
+		$(".selectlist").val("");
+	}
+	function gocheck(){
+		selecname = $(".name").val();
+		selectbumen = $(".section").val();
+		mangestate =$(".selectlist option:selected").val();
+		nowpage()
+	}
+	function signstateFun(state){
+			var test = {};
+			if (state == "2") {
+				test["txt"] = '已签到';
+				test["color"] = "#52C41A";
+				test["seeor"] = "————";
+			} else if (state == "3") {
+				test["txt"] = '迟到';
+				test["color"] = "#834DDD";
+				test["seeor"] = "————";
+			} else if (state == "4") {
+				test["txt"] = '已通过';
+				test["color"] = "#FFBF00";
+				test["seeor"] = "查看";
+			} else if (state == "5") {
+				test["txt"] = '缺勤';
+				test["color"] = "#F5222D";
+				test["seeor"] = "————";
+			}
+			else if (state == "6") {
+				test["txt"] = '待审核';
+				test["color"] = "#0084ff";
+				test["seeor"] = "审核";
+			}
+			else if (state == "7") {
+				test["txt"] = '驳回';
+				test["color"] = "#ff0096";
+				test["seeor"] = "查看";
+			}
+			else if (state == "0"||state == "1") {
+				test["txt"] = '未签到';
+				test["color"] = "#565656";
+				test["seeor"] = "————";
+			} 
+			return JSON.stringify(test);
+        }
+	function getParam(paramName) { 
+    paramValue = "", isFound = !1; 
+    if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) { 
+        arrSource = decodeURIComponent(this.location.search).substring(1, this.location.search.length).split("&"), i = 0; 
+        while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++; 
+    } 
+    return paramValue == "" && (paramValue = null), paramValue ;
+}
+    //	nowpage()
+	function pagepeozhi (){
+		     layui.use(['laypage', 'layer'], function(){
+			  var laypage = layui.laypage
+			  ,layer = layui.layer;
+			  laypage.render({
+			    elem: 'joinpage',
+			    count: pagesa,
+			    curr: nowpagea,
+			    limit:sizea,
+			    layout: ['count', 'prev', 'page', 'next','skip'],
+			    jump: function(obj,first){
+			      // var currPage=obj.curr;
+                    // var perPage_num=obj.limit;
+                    nowpagea = obj.curr;
+                    pagea = (obj.curr - 1) * sizea;
+                    if (!first) {//一定要加此判断，否则初始时会无限刷新
+                        nowpage();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                        location.href = '#top';
+                        //<a href="#top">返回顶部</a>
+                    }
+			    }
+			});
+			});
+			}
+    function goFUN (that){
+    	var mystate = $(that).attr("mystate");
+    	var changeid = $(that).parent().attr("id");
+    	if(mystate==6){
+    		window.location.href="mangeleave.html?id="+changeid;	
+    		
+    	}
+    	else{
+    		window.location.href="leave.html?id="+changeid;
+    	}
+    }
+</script>
+</body>
+
+</html>

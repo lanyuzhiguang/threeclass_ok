@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>请假审批</title>
+    <link rel="stylesheet" type="text/css" href="../../../moduleweb/resources/plugins/toastr/toastr.min.css" />
+    <!--    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>-->
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../moduleweb/resources/plugins/toastr/toastr.min.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #F0F2F5;
+            margin: 0;
+        }
+        .rap{
+        	width: 100%;
+        }
+        .page-top {
+            background-color: #FFFFFF;
+            padding: 16px;
+            padding-left: 28px;
+            width: 100%;
+        }
+        
+        .back {
+            cursor: pointer;
+            font-weight: 400;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        
+        .pagetitle {
+            padding-top: 12px;
+            color: rgba(0, 0, 0, 0.847058823529412);
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 28px;
+        }
+        
+        .content {
+            margin: 0 28px;
+            margin-top: 24px;
+            background-color: #FFFFFF;
+            padding: 0 32px;
+        }
+        
+        .meeting-content {
+            line-height: 22px;
+            padding-top: 24px;
+            padding-bottom: 12px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        
+        .base-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #272727;
+            border-bottom: 1px solid#E9E9E9;
+            line-height: 55px;
+        }
+        
+        .leave-content-top {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .content-item {
+            width: 22.7%;
+            margin-right: 72px;
+        }
+        
+        .iconfont {
+            color: #FF2727;
+        }
+        
+        .content-item-title {
+            color: #272727;
+        }
+        
+        .content-item-wrap {
+            color: #5A5A5A;
+        }
+        
+        .cancel {
+            border: 1px solid#E9E9E9;
+            background-color: #FFFFFF;
+            color: rgba(0, 0, 0, 0.647058823529412);
+            border-radius: 4px;
+            margin-right: 13px;
+	        width: 60px;
+	        height: 32px; 	
+        }
+        
+        .confirm {
+            border: 1px solid#1890FF;
+            border-radius: 4px;
+            color: #FFFFFF;
+            background-color: #1890FF;
+	        width: 60px;
+	        height: 32px; 
+        }
+        
+        .content--title {
+            line-height: 55px;
+        }
+        
+        .because {
+            padding-bottom: 20px;
+        }
+        
+        .leave-cause {
+            min-height: 140px;
+            text-align: left;
+            width: 100%;
+            color: rgba(0, 0, 0, 0.247058823529412);
+            border: 1px solid rgba(0, 0, 0, 0.247058823529412);
+            border-radius: 4px;
+            height: 32px;
+            padding-left: 10px;
+        }
+        
+        .conclusion-check {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        .btns {
+            text-align: center;
+        }
+        
+        input[type="radio"]+label::before {
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 18px;
+            width: 17px;
+            height: 17px;
+            margin-right: 7px;
+            border-radius: 50%;
+            border: 1px solid#1890FF;
+            text-indent: 1px;
+            line-height: 1;
+        }
+        
+        input[type="radio"]:checked+label::before {
+            background-color: #1890FF;
+            background-clip: content-box;
+            padding: 4px;
+        }
+    </style>
+</head>
+
+<body>
+   <!-- <div class="rap">-->
+        <div class="page-top">
+            <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+            <div class="pagetitle">请假审批</div>
+        </div>
+        <div class="content">
+            <div class="base-title">提交请假信息</div>
+            <div class="meeting-content leave-content">
+                <div class="leave-content-top">
+                    <div class="content-item">
+                        <span class="content-item-title ">标题：</span>
+                        <span class="content-item-wrap leavetitle"></span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-item-title">姓名：</span>
+                        <span class="content-item-wrap leavename"></span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-item-title">所属支部：</span>
+                        <span class="content-item-wrap leavesection"></span>
+                    </div>
+                </div>
+                <div class="content-wrap ">
+                    <div class="content--title content-item-title">请假事由：</div>
+                    <div class="content-item-wrap because leavecontent"></div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="base-title">审核请假信息</div>
+            <div class="meeting-content leave-content">
+                <div class="content-wrap">
+                    <div class="content-item">
+                        <span class="iconfont">*</span>
+                        <span class="content-item-title">审核意见</span>
+                    </div>
+                    <div class="content-item-wrap">
+                        <textarea name="" rows="" cols="" placeholder="请输入文本" class="leave-cause shenhecontent"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="meeting-content leave-content">
+                <div class="content-wrap">
+                    <div class="content-item">
+                        <span class="iconfont">*</span>
+                        <span class="content-item-title">审核结论</span>
+                    </div>
+                    <div class="conclusion-check">
+                        <div class="okleave">
+                            <label for="okleave">批准请假</label>
+						<input name="radio1" type="radio" id="okleave" leavestate="1">
+                        </div>
+                        <div class="noleave">
+                            <label for="noleave">驳回请假</label>
+						<input name="radio1" type="radio" id="noleave" leavestate="0">
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button class="cancel" onclick="goback()">取消</button>
+                        <button class="confirm" onclick="upresult()">确定</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+ <!--   </div>-->
+    <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+    <script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        var id = getParam("id");
+        $(function() {
+            xuanran()
+        })
+
+        function xuanran() {
+            $.get(_ctxPath + "conference/detail/findById.action", {
+                "detailId": id
+            }, function(data) {
+                $(".leavetitle").text(data.data.leave[0].title);
+                $(".leavename").text(data.data.leave[0].userName);
+                $(".leavesection").text(data.data.leave[0].bumenName);
+                $(".leavecontent").text(data.data.leave[0].content);
+            })
+        }
+
+        function upresult() {
+            var content = $(".shenhecontent").val();
+            var state = $("input[name='radio1']:checked").attr("leavestate");
+            if (content) {
+            	if (state) {
+            		$.get(_ctxPath + "conference/detail/audLeave.action", {
+		                "detailId": id,
+		                "state": state,
+		                "content": content
+		            }, function(data) {
+		            	if (data.success) {
+        		 		toastr.success("审核成功");
+						setTimeout(function(){history.back(-1)},1000)	
+		            	} else{
+		            	toastr.success(data.message);	
+		            	}    
+		            })
+            	} 
+            	else{
+            		 toastr.success("请选择审核结果");
+            	}
+            	
+            } else{
+            	 toastr.success("请填写审核意见");
+            }
+            
+
+        }
+        function goback() {
+            history.back(-1)
+        }
+
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = decodeURIComponent(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++;
+            }
+            return paramValue == "" && (paramValue = null), paramValue;
+        }
+    </script>
+
+</body>
+
+</html>

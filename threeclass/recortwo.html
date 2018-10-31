@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>请假</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/plugins/ztree/zTreeStyle.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="icon/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../moduleweb/resources/plugins/toastr/toastr.min.css" />
+    <style type="text/css">
+        * {
+            font-family: "苹方", "冬青黑体简体中文", "微软雅黑", "宋体", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #F0F2F5;
+        }
+        
+        .page-top {
+            background-color: #FFFFFF;
+            padding: 16px;
+            padding-left: 28px;
+        }
+        
+        .back {
+            cursor: pointer;
+            font-weight: 400;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        
+        .pagetitle {
+            padding-top: 12px;
+            color: rgba(0, 0, 0, 0.847058823529412);
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 28px;
+        }
+        
+        .content {
+            margin: 0 28px;
+            margin-top: 24px;
+            background-color: #FFFFFF;
+            padding: 0 32px;
+            padding-bottom: 20px;
+        }
+        
+        .meeting-content {
+            line-height: 22px;
+            padding-top: 24px;
+            padding-bottom: 12px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        
+        .base-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #272727;
+            border-bottom: 1px solid#E9E9E9;
+            line-height: 55px;
+        }
+        
+        .content-item {
+            margin: 15px 0;
+            margin-right: 72px;
+            min-height: 55px;
+        }
+        
+        .iconfont {
+            color: #FF2727;
+        }
+        
+        .name {
+            color: #272727;
+        }
+        
+        .content-item-title {
+            color: #272727;
+        }
+        
+        .leavecontent {
+            width: 100%;
+            color: #5A5A5A;
+        }
+        
+        .xuan {
+            color: #199ED8;
+            padding-left: 10px;
+            padding-top: 10px;
+            cursor: pointer;
+        }
+        
+        .btns {
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            /*position: relative;*/
+            bottom: 0;
+            left: 0;
+            padding-top: 15px;
+            background: #FFFFFF;
+        }
+        
+        .btns button {
+            width: 70px;
+            height: 32px;
+            text-align: center;
+            line-height: 32px;
+            background-color: #1890FF;
+            border: 1px solid#1890FF;
+            border-radius: 4px;
+            color: #FFFFFF;
+        }
+        
+        .shadel {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            top: 0px;
+            left: 0;
+            background-color: rgba(152, 139, 139, 0.2);
+            z-index: 998;
+        }
+        
+        .sctiontree {
+            background-color: #FFFFFF;
+            width: 350px;
+            min-height: 400px;
+            position: absolute;
+            top: 200px;
+            bottom: 200px;
+            right: 0;
+            left: 0;
+            margin: auto;
+            padding: 15px;
+            z-index: 9999999;
+            overflow-y: auto;
+            overflow-x: auto;
+            box-shadow: 0px 4px 12px rgba(152, 139, 139, 0.447058823529412)
+        }
+        .treebtns{
+        	padding-top: 20px;
+        	width: 100%;
+        	position: relative;
+        	bottom: 10px;
+        	text-align: right;
+        	padding-right: 10px;
+        }
+        
+        .treebtns button {
+            width: 70px;
+            height: 32px;
+            text-align: center;
+            line-height: 32px;
+            border-radius: 4px;
+        }
+        
+        .sctiontree-ttitle {
+            padding-top: 15px;
+            font-size: 16px;
+            color: #5A5A5A;
+            padding-left: 15px;
+        }
+        
+        table {
+            width: 50%;
+            margin-top: 20px;
+        }
+        
+        tr {
+            border-bottom: 1px solid#E8E8E8;
+        }
+        
+        th {
+            background-color: #FAFAFA;
+            height: 54px;
+            padding-left: 15px;
+        }
+        
+        td {
+            height: 54px;
+            padding-right: 20px;
+            color: #5A5A5A;
+            white-space: nowrap;
+            padding-left: 15px;
+        }
+        
+        .bianji {
+            color: #5ABDFF;
+            cursor: pointer;
+        }
+        
+        .leavepeople {
+            position: relative;
+        }
+        
+        .leavebtns {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .leavebtns button {
+            width: 70px;
+            height: 32px;
+            text-align: center;
+            line-height: 32px;
+            border-radius: 4px;
+        }
+        
+        .leave-wrap {
+            position: absolute;
+            bottom: 30px;
+            left: 52%;
+            width: 540px;
+            height: 364px;
+            padding: 0 24px;
+            z-index: 999;
+            background-color: #FFFFFF;
+            box-shadow: 0px 4px 12px rgba(152, 139, 139, 0.447058823529412)
+        }
+        
+        .leave-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+            border-bottom: 1px solid#EBEBEB;
+            font-size: 15px;
+            font-weight: 600;
+            color: #5A5A5A;
+        }
+        
+        .leave-content {
+            padding-top: 20px;
+            line-height: 30px;
+            color: #5A5A5A;
+            font-size: 14px;
+        }
+        
+        .causecontent {
+            width: 100%;
+            height: 148px;
+            border: 1px solid#999999;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        
+        .bluebtn {
+            background-color: #1890FF;
+            border: 1px solid#1890FF;
+            color: #FFFFFF;
+        }
+        
+        .writebtn {
+            background-color: #FFFFFF;
+            border: 1px solid#E9E9E9;
+            color: #5A5A5A;
+        }
+        
+        .xwuxiao {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+	<div class="" style="position: relative;">
+		<div class="clearfix upleave">
+        <div class="page-top">
+            <div class="back" onclick="gobackFU()">&laquo;返回</div>
+            <div class="pagetitle">新建三会一课-人员</div>
+        </div>
+        <div class="content ">
+            <div class="base-title">会议出席情况</div>
+            <div class="meeting-content leave-content">
+                <div class="content-item">
+                    <div class="content-item-title">
+                        <span class="iconfont">*</span>
+                        <span class="name">出席人员</span>
+                    </div>
+                    <div class="xuan xuanone" onclick="xuanpeo()">请选择</div>
+                    <div class="shadelone shadel" style="display: none;">
+                        <div class="sctionone sctiontree">
+                            <div class="sctiontree-ttitle">出席人员选择</div>
+                            <ul id="treeDemo1" class="ztree"></ul>
+                            <div class="treebtns">
+                                <button onclick="clearone()" class="writebtn">取消</button>
+                                <button onclick="hideMenuone()" class="bluebtn">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-item">
+                    <div class="content-item-title">
+                        <span class="iconfont">*</span>
+                        <span class="name">请假人员</span>
+                    </div>
+                    <div class="xuan xuantwo" onclick="selecttwo()">请选择</div>
+                    <div class="shadeltwo shadel" style="display: none;">
+                        <div class="sctiontwo sctiontree">
+                            <div class="sctiontree-ttitle">请假人员选择</div>
+                            <div class="">请假人员选择:</div>
+                            <ul id="treeDemo2" class="ztree"></ul>
+                            <div class="treebtns">
+                                <button onclick="cleartwo()" class="writebtn">取消</button>
+                                <button onclick="hideMenutwo()" class="bluebtn">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leavepeople" style="display: none;">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <th>姓名</th>
+                                <th>操作</th>
+                            </tr>
+                            <tbody class="tablelist">
+                                <tr class="peopleitem">
+                                    <td class="name"></td>
+                                    <td onclick="seekuang(this)" class="bianji">编辑</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <div class="leave-wrap" style="display: none;">
+                            <div class="leave-top">
+                                <span>添加请假原因</span>
+                                <span onclick="delkuang()" class="xwuxiao">X</span>
+                            </div>
+                            <div class="leave-content">
+                                <div>
+                                    <span id="">姓名：</span>
+                                    <span class="leavename"></span>
+                                </div>
+                                <div class="">请假原因</div>
+                                <textarea name="" rows="" cols="" placeholder="请填写请假原因" class="causecontent"></textarea>
+                                <div class="leavebtns">
+                                    <button class="writebtn" onclick="delkuang()">取消</button>
+                                    <button class="bluebtn" onclick="addleave()">确定</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="content-item">
+                    <div class="content-item-title">
+                        <span class="iconfont">*</span>
+                        <span class="name">缺勤人员</span>
+                    </div>
+                    <div class="xuan xuanthree" onclick="selectthree()">请选择</div>
+                    <div class="shadelthree shadel" style="display: none;">
+                        <div class="sctiotree sctiontree">
+                            <div class="sctiontree-ttitle">缺勤人员选择</div>
+                            <ul id="treeDemo3" class="ztree"></ul>
+                            <div class="treebtns">
+                                <button onclick="clearthree()" class="writebtn">取消</button>
+                                <button onclick="hideMenuthree()" class="bluebtn">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btns">
+                <button style="margin-right: 15px;" onclick="gobackFU()">上一步</button>
+                <button onclick="nextbtn()">下一步</button>
+            </div>
+        </div>
+    </div>
+   
+	</div>
+     <script src="../../resources/js/jquery.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+    <script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../../resources/plugins/ztree/jquery.ztree.core.min.js"></script>
+    <script src="../../resources/plugins/ztree/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var meetid = getParam("id");
+        var peopleitem = $(".peopleitem");
+         peopleitem.remove();
+        var isSin = [], //出席人员
+            isLeave = [], //请假人员
+            isNduty = [], //缺勤人员
+            surplus = []; //未选择人员
+            
+           
+        $(function() {
+        	 $.get(_ctxPath + "conference/findUserRecoud.action",{"conferId":meetid},function(data){
+                $(data.data.surplus).each(function(index, value) {
+                    var ztreeData = {};
+                    ztreeData.id = value.userId;
+                    ztreeData.pId = value.bumenId;
+                    ztreeData.bumenName = value.bumenName;
+                    ztreeData.name = value.userName;
+                    ztreeData.isParent = false;
+                    ztreeData.icon = "img/po.png"; //"img/bumen.png"
+                    ztreeData.checked = false;
+                    surplus.push(ztreeData);
+                })
+        	 	$(data.data.isSin).each(function(index, value) {
+                    var ztreeData = {};
+                    ztreeData.id = value.userId;
+                    ztreeData.pId = value.bumenId;
+                    ztreeData.bumenName = value.bumenName;
+                    ztreeData.name = value.userName;
+                    ztreeData.isParent = false;
+                    ztreeData.icon = "img/po.png"; //"img/bumen.png"
+                    ztreeData.checked = true;
+                    isSin.push(ztreeData);
+                })
+        	 	if(isSin.length>0){
+        	 	 $(".xuanone").text("已选择出席人员"+isSin.length+"人");	
+        	 	}
+        	 	
+        	 	$(data.data.Late).each(function(index, value) {
+                    var ztreeData = {};
+                    ztreeData.id = value.userId;
+                    ztreeData.pId = value.bumenId;
+                    ztreeData.bumenName = value.bumenName;
+                    ztreeData.name = value.userName;
+                    ztreeData.isParent = false;
+                    ztreeData.icon = "img/po.png"; //"img/bumen.png"
+                    ztreeData.checked = true;
+                    isLeave.push(ztreeData);
+                })
+        	 	
+	            if(isLeave.length>0){
+	            $(isLeave).each(function() {
+	            	 $(".xuantwo").text("已选择请假人员"+isLeave.length+"人");
+	                var item = peopleitem.clone();
+	                item.find(".name").text(this.name);
+	                item.find(".bianji").attr("myid", this.id).attr("bumenid", this.pId).attr("bumename", this.bumenName);
+	                $(".tablelist").append(item)
+	            })
+	            $(".leavepeople").css("display", "")
+	            	
+	            }
+        	 	$(data.data.isNduty).each(function(index, value) {
+                    var ztreeData = {};
+                    ztreeData.id = value.userId;
+                    ztreeData.pId = value.bumenId;
+                    ztreeData.bumenName = value.bumenName;
+                    ztreeData.name = value.userName;
+                    ztreeData.isParent = false;
+                    ztreeData.icon = "img/po.png"; //"img/bumen.png"
+                    ztreeData.checked = true;
+                    isNduty.push(ztreeData);
+                })
+        	 	if(isNduty.length>0){
+        	 	$(".xuanthree").text("已选择缺勤人员"+isNduty.length+"人");	
+        	 	}
+        	 	
+        	 	
+        	 })
+        })
+        
+        function gobackFU (){
+       	  window.location.href = "recordWchange.html?id=" + meetid;
+       	}
+        function nextbtn() {
+        	var isSinidArr = [];
+        	var isLeaveidArr = [];
+        	var isNdutyidArr = [];
+        	$(isSin).each(function(){
+        		var isSinid = this.id;
+        		isSinidArr.push(isSinid)
+        	})
+        	$(isLeave).each(function(){
+        		var isLeaveid = this.id;
+        		isLeaveidArr.push(isLeaveid)
+        	})
+        	$(isNduty).each(function(){
+        		var isNdutyid = this.id;
+        		isNdutyidArr.push(isNdutyid)
+        	})
+        	var peoleone = isSinidArr.toString();
+        	var peopeltwo = isLeaveidArr.toString();
+        	var peoplethree = isNdutyidArr.toString(); 
+        	$.post(_ctxPath+"conference/upUserRecoud.action",
+	        	{conferId:meetid,
+	            toUserIds:peoleone, 
+	            levaUserIds:peopeltwo,
+	        	noUserIds:peoplethree
+	        	},function(data){
+	        		if (data.success) {
+	        			window.location.href = "uprecordthree.html?id=" + meetid;
+	        			
+	        		} else{
+	        			toastr.success(data.message);	
+	        		}
+	        		
+	        	})
+           
+        }
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = decodeURIComponent(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++;
+            }
+            return paramValue == "" && (paramValue = null), paramValue;
+        }
+    </script>
+
+    <script>
+        //主要存放当树要显示的用户的信息的数组
+        var pagepeoplearr = [];
+        var allpapemap = {};
+
+        function tousermap(selectArr) {
+            pagepeoplearr = [];
+            allpapemap = {};
+            var bumenMap = {};
+            for (var i = 0; i < selectArr.length; i++) {
+                selectArr[i].checked = true;
+                pagepeoplearr.push(selectArr[i]);
+                allpapemap[selectArr[i].id] = selectArr[i];
+                bumenMap[selectArr[i].pId] = selectArr[i].bumenName;
+            }
+            for (var i = 0; i < surplus.length; i++) {
+                pagepeoplearr.push(surplus[i]);
+                allpapemap[surplus[i].id] = surplus[i];
+                bumenMap[surplus[i].pId] = surplus[i].bumenName;
+            }
+            for (var key in bumenMap) {
+                if (bumenMap[key] != "") {
+                    var ztreeData = {};
+                    ztreeData.id = key;
+                    ztreeData.name = bumenMap[key];
+                    ztreeData.icon = "img/bumen.png";
+                    pagepeoplearr.push(ztreeData);
+                }
+            }
+        }
+
+        function alltreefun(selectArr) {
+            for (var i = 0; i < selectArr.length; i++) {
+                selectArr[i] = allpapemap[selectArr[i].id];
+                allpapemap[selectArr[i].id] = "";
+            }
+            surplus = [];
+            for (var key in allpapemap) {
+                if (allpapemap[key] != "") {
+                    surplus.push(allpapemap[key]);
+                }
+            }
+            return selectArr;
+        }
+    </script>
+    <script>
+        //	出席人员选人
+        var showpeotreeid = "";
+        var zTree1;
+        var setting1 = {
+            view: {
+                selectedMulti: false
+            },
+            check: {
+                enable: true,
+                chkStyle: "checkbox",
+                radioType: "level"
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+
+        };
+
+        function clearone() {
+            $(".shadelone").css("display", "none");
+        }
+
+        function xuanpeo() {
+            $(".shadelone").css("display", "");
+            tousermap(isSin);
+            zTree1 = $.fn.zTree.init($("#treeDemo1"), setting1, pagepeoplearr);
+            var node = zTree1.getNodeByParam("id", 0)
+        }
+
+        function countone() {
+            checkCount = zTree1.getCheckedNodes(true);
+            var selectArr = [];
+            $(checkCount).each(function() {
+                if (this.isParent == false) {
+                    var checkpeoObj = {};
+                    checkpeoObj.id = this.id;
+                    checkpeoObj.name = this.name;
+                    selectArr.push(checkpeoObj)
+                }
+            })
+            isSin = alltreefun(selectArr);
+            $(".xuanone").text("已选择出席人员"+isSin.length+"人");
+        }
+
+        function hideMenuone() {
+            $(".shadelone").css("display", "none");
+            countone()
+        }
+    </script>
+    <script>
+        //	请假选人
+        var showpeotreeid = "";
+        var zTree2;
+        var setting2 = {
+            view: {
+                selectedMulti: false
+            },
+            check: {
+                enable: true,
+                chkStyle: "checkbox",
+                radioType: "level"
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+
+        };
+
+        function cleartwo() {
+            $(".shadeltwo").css("display", "none");
+        }
+
+        function selecttwo() {
+            $(".shadeltwo").css("display", "");
+            tousermap(isLeave);
+            zTree2 = $.fn.zTree.init($("#treeDemo2"), setting2, pagepeoplearr);
+            var node = zTree2.getNodeByParam("id", 0)
+        }
+
+        function counttwo() {
+            checkCount = zTree2.getCheckedNodes(true);
+            var selectArr = [];
+            $(checkCount).each(function() {
+                if (this.isParent == false) {
+                    var checkpeoObj = {};
+                    checkpeoObj.id = this.id;
+                    checkpeoObj.name = this.name;
+                    selectArr.push(checkpeoObj)
+                }
+            })
+            isLeave = alltreefun(selectArr);
+            $(".xuantwo").text("已选择请假人员"+isLeave.length+"人");
+            if(isLeave.length>0){
+            $(isLeave).each(function() {
+                var item = peopleitem.clone();
+                item.find(".name").text(this.name);
+                item.find(".bianji").attr("myid", this.id).attr("bumenid", this.pId).attr("bumename", this.bumenName);
+                $(".tablelist").append(item)
+            })
+            $(".leavepeople").css("display", "")
+            	
+            }
+            
+
+
+        }
+
+        function hideMenutwo() {
+            $(".shadeltwo").css("display", "none");
+            counttwo()
+        }
+       
+    </script>
+    <script>
+        //	缺勤选人
+        var showpeotreeid = "";
+        var zTree3;
+        var setting3 = {
+            view: {
+                selectedMulti: false
+            },
+            check: {
+                enable: true,
+                chkStyle: "checkbox",
+                radioType: "level"
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+
+        };
+
+        function clearthree() {
+            $(".shadelthree").css("display", "none");
+        }
+
+        function selectthree() {
+            $(".shadelthree").css("display", "")
+            tousermap(isNduty);
+            zTree3 = $.fn.zTree.init($("#treeDemo3"), setting3, pagepeoplearr);
+            var node = zTree3.getNodeByParam("id", 0)
+        }
+        function countthree() {
+            checkCount = zTree3.getCheckedNodes(true);
+            var selectArr = [];
+            $(checkCount).each(function() {
+                if (this.isParent == false) {
+                    var checkpeoObj = {};
+                    checkpeoObj.id = this.id;
+                    checkpeoObj.name = this.name;
+                    selectArr.push(checkpeoObj)
+                }
+            })
+            isNduty = alltreefun(selectArr);
+            $(".xuanthree").text("已选择缺勤人员"+isNduty.length+"人");
+        }
+        function hideMenuthree() {
+            $(".shadelthree").css("display", "none");
+            countthree()
+        }
+    </script>
+    <script type="text/javascript">
+    	//给请假人员填写请假理由
+        function addleave() {
+            var bumenid = $(".leavename").attr("bumenid");
+            var bumenName = $(".leavename").attr("bumename");
+            var myid = $(".leavename").attr("myid");
+            var myname = $(".leavename").text();
+            var causecontent = $(".causecontent").val();
+            $.get(_ctxPath + "conference/detail/audFULeave.action", {
+                "conferId": meetid,
+                "userId": myid,
+                "userName": myname,
+                "bumenId": bumenid,
+                "bumenName": bumenName,
+                "content": causecontent
+            }, function(data) {
+                toastr.success("请假成功");
+                setTimeout(function() {
+                    $(".leave-wrap").css("display", "none");
+                }, 1500)
+
+            })
+        }
+
+        function delkuang() {
+            $(".leave-wrap").css("display", "none")
+        }
+
+        function seekuang(that) {
+            var sbumenid = $(that).attr("bumenid");
+            var sbumenName = $(that).attr("bumename");
+            var smyid = $(that).attr("myid");
+            var smyname = $(that).parent().find(".name").text();
+            $(".leave-wrap").css("display", "")
+            $(".leavename").text(smyname);
+            $(".leavename").attr("myid", smyid).attr("bumenid", sbumenid).attr("bumename", sbumenName);
+
+        }
+    </script>
+</body>
+
+</html>
