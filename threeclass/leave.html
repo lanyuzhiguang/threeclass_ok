@@ -66,8 +66,10 @@
         .content-item {
             width: 22.7%;
             margin-right: 72px;
+            display: flex;
+            justify-content:flex-start;
+            align-items: center; 
         }
-        
         .iconfont {
             color: #FF2727;
         }
@@ -78,12 +80,14 @@
         
         .content-item-title {
             color: #272727;
+            flex:20%;
         }
         
         .content-item-wrap {
-            width: 100%;
+            /*width: 100%;*/
             color: #5A5A5A;
-            padding-top: 18px;
+            /*padding-top: 18px;*/
+            flex:80%;
         }
         
         .leavecontent {
@@ -168,6 +172,15 @@
         .leavemsg-state {
             padding-bottom: 20px;
         }
+        .base-item-section{
+        	width:40%;
+        	display: flex;
+        	justify-content: flex-start;
+        	align-items: center;
+        }
+        .comment{
+        	padding-top: 15px;
+        }
     </style>
 </head>
 
@@ -199,7 +212,7 @@
                             <input type="" name="" id="" value="" placeholder="请输入名字" class="leavename" />
                         </div>
                     </div>
-                    <div class="content-item">
+                    <div class="base-item-section">
                         <div class="content-item-title">
                             <span class="iconfont">*</span>
                             <span class="name">所属支部</span>
@@ -234,15 +247,15 @@
             <div class="base-title">提交请假信息</div>
             <div class="meeting-content leave-content">
                 <div class="leave-content-top">
-                    <div class="content-item">
+                    <div class="content-item base-item">
                         <span class="content-item-title">标题：</span>
                         <span class="content-item-wrap leavetitle"></span>
                     </div>
-                    <div class="content-item">
+                    <div class="content-item base-item">
                         <span class="content-item-title">姓名：</span>
                         <span class="content-item-wrap leavename"></span>
                     </div>
-                    <div class="content-item">
+                    <div class="base-item-section">
                         <span class="content-item-title">所属支部：</span>
                         <span class="content-item-wrap leavesection"></span>
                     </div>
@@ -270,15 +283,15 @@
             <div class="base-title">提交请假信息</div>
             <div class="meeting-content leave-content">
                 <div class="leave-content-top">
-                    <div class="content-item">
+                    <div class="content-item base-item">
                         <span class="content-item-title">标题：</span>
                         <span class="content-item-wrap leavetitle"></span>
                     </div>
-                    <div class="content-item">
+                    <div class="content-item base-item">
                         <span class="content-item-title">姓名：</span>
                         <span class="content-item-wrap leavename"></span>
                     </div>
-                    <div class="content-item">
+                    <div class="base-item-section">
                         <span class="content-item-title">所属支部：</span>
                         <span class="content-item-wrap leavesection"></span>
                     </div>
