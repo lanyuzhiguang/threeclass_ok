@@ -210,11 +210,23 @@
             line-height: 32px;
             border-radius: 4px;
         }
-        
+        .shade{
+            position:absolute;
+            right: 0;
+            bottom: 0;
+            top:0;
+            left: 0;
+            background-color: rgba(152, 139, 139, 0.2);
+            z-index: 998;
+
+        }
         .leave-wrap {
             position: absolute;
-            bottom: 30px;
-            left: 52%;
+            bottom: 0;
+            top: 0;
+            right: 0;
+            left: 0;
+            margin: auto;
             width: 540px;
             height: 364px;
             padding: 0 24px;
@@ -311,21 +323,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="leavepeople" style="display: none;">
-                        <table border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <th>姓名</th>
-                                <th>操作</th>
-                            </tr>
-                            <tbody class="tablelist">
-                                <tr class="peopleitem">
-                                    <td class="name"></td>
-                                    <td onclick="seekuang(this)" class="bianji">编辑</td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-                        <div class="leave-wrap" style="display: none;">
+                    <div class="shade" style="display: none">
+                        <div class="leave-wrap" >
                             <div class="leave-top">
                                 <span>添加请假原因</span>
                                 <span onclick="delkuang()" class="xwuxiao">X</span>
@@ -344,6 +343,23 @@
                             </div>
 
                         </div>
+                    </div>
+
+                    <div class="leavepeople" style="display: none;">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <th>姓名</th>
+                                <th>操作</th>
+                            </tr>
+                            <tbody class="tablelist">
+                                <tr class="peopleitem">
+                                    <td class="name"></td>
+                                    <td onclick="seekuang(this)" class="bianji">编辑</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
                     </div>
                 </div>
                 <div class="content-item">
@@ -369,10 +385,12 @@
                 <button onclick="nextbtn()">下一步</button>
             </div>
         </div>
-    </div>
-   
-	</div>
-     <script src="../../resources/js/jquery.min.js"></script>
+
+
+        </div>
+   </div>
+
+    <script src="../../resources/js/jquery.min.js"></script>
     <script src="../../resources/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
     <script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
@@ -737,14 +755,14 @@
             }, function(data) {
                 toastr.success("请假成功");
                 setTimeout(function() {
-                    $(".leave-wrap").css("display", "none");
+                    $(".shade").css("display", "none");
                 }, 1500)
 
             })
         }
 
         function delkuang() {
-            $(".leave-wrap").css("display", "none")
+            $(".shade").css("display", "none")
         }
 
         function seekuang(that) {
@@ -752,7 +770,7 @@
             var sbumenName = $(that).attr("bumename");
             var smyid = $(that).attr("myid");
             var smyname = $(that).parent().find(".name").text();
-            $(".leave-wrap").css("display", "")
+            $(".shade").css("display", "")
             $(".leavename").text(smyname);
             $(".leavename").attr("myid", smyid).attr("bumenid", sbumenid).attr("bumename", sbumenName);
 
