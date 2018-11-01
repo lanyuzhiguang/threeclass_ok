@@ -506,8 +506,7 @@
             <div class="meeting-content leave-content">
                 <div class="leave-content-top">
                     <div id="editor-trigger" contenteditable="false">
-                        <p id="meetingcontent"></p>
-                        <!--<textarea name="" rows="" cols="" placeholder="在这里输入正文" ></textarea>-->
+                        <textarea name="" rows="" cols="" placeholder="在这里输入正文" id="meetingcontent"></textarea>
                     </div>
                 </div>
             </div>
@@ -741,6 +740,7 @@
             var imgs = liveArr.toString();
             if (meetTitle&&meetType&&meetName&&datetimeStart&&datetimeEnd&&meetsite&&upsectionid&&onlycontent&&uppeopleIDs) {
             	if (onlyone) {
+                    onlyone=false;
 	        	    $.post(_ctxPath + "conference/upBasic.action", {
 		                "_id": conferId,
 		                "title": meetTitle,
@@ -758,8 +758,9 @@
 		                "fleNames": funames,
 		                "type": 101
 		            }, function(data) {
+                        onlyone=true;
 		            	if (data.success) {
-		            		onlyone= false;
+
 		                	toastr.success("上传成功！");
 		                	setTimeout(history.back(-1), 1000);
 		            		} else{

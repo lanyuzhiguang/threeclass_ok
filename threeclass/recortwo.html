@@ -150,6 +150,7 @@
             text-align: right;
             padding-right: 20px;
         }
+        
         .treebtns button {
             width: 70px;
             height: 32px;
@@ -405,6 +406,7 @@
             surplus = []; //未选择人员
         var allpeople = [];
         var leaveUser = {};
+        var onlyone = true;
         $(function() {
         	 $.get(_ctxPath + "conference/findUserRecoud.action",{"conferId":meetid},function(data){
                 $(data.data.surplus).each(function(index, value) {
@@ -503,20 +505,28 @@
         	var peopeltwo = isLeaveidArr.toString();
         	var peoplethree = isNdutyidArr.toString();
         	if(surplus.length==0){
-                $.post(_ctxPath+"conference/upUserRecoud.action",
-                    {conferId:meetid,
-                        toUserIds:peoleone,
-                        levaUserIds:peopeltwo,
-                        noUserIds:peoplethree
-                    },function(data){
-                        if (data.success) {
-                            window.location.href = "uprecordthree.html?id=" + meetid;
+        	    if (onlyone){
+        	        only = false;
+                    $.post(_ctxPath+"conference/upUserRecoud.action",
+                        {conferId:meetid,
+                            toUserIds:peoleone,
+                            levaUserIds:peopeltwo,
+                            noUserIds:peoplethree
+                        },function(data){
+                            only = true;
+                            if (data.success) {
+                                window.location.href = "uprecordthree.html?id=" + meetid;
 
-                        } else{
-                            toastr.success(data.message);
-                        }
+                            } else{
+                                toastr.success(data.message);
+                            }
 
-                    })
+                        })
+                }
+                else{
+                    toastr.success("请勿重复提交");
+                }
+
             }
             else{
                 toastr.success("还有人员未被选择");

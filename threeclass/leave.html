@@ -397,6 +397,7 @@
             var bumenName = $(".leavesection").val();
             var content = $(".leavecontent").val();
             if (upone) {
+                upone= false;
                 $.post(_ctxPath + "conference/detail/userLeave.action", {
                     "detailId": id,
                     "title": title,
@@ -404,6 +405,7 @@
                     "bumenName": bumenName,
                     "content": content
                 }, function(data) {
+                    upone = true;
                 	if (data.success) {
                 	setTimeout(function(){history.back(-1)},1000)
                     toastr.success("提交请假成功");

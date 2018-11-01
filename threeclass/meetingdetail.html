@@ -206,8 +206,14 @@
 
 <body>
     <div class=" clearfix">
-        <div class="back" onclick="gobackFUN()">&laquo;返回</div>
-        <ul class="nav nav-tabs aw-nav-tabs">   "content">
+        <div class="back" onclick="history.back(-1)">&laquo;返回</div>
+        <ul class="nav nav-tabs aw-nav-tabs">
+            <li class="navitem" name="#meetingdetail"><a href="#">会议详情</a></li>
+            <li class="navitem" name="#meetingrecord"><a href="#">会议记录</a></li>
+            <li class="active navitem" name="#people"><a href="#">人员</a></li>
+        </ul>
+        <div class="meetingdetail allitem" id="meetingdetail" style="display:none;">
+            <div class="content">
                 <div class="basemsg">
                     <div class="base-title">基本信息</div>
                     <div class="basemsg-content">
@@ -457,9 +463,13 @@
         $("#informallpeople").click(function() {
 
             })
-        function gobackFUN() {
-
-        }
+            //			mui.init();
+            ////			mui.plusReady(function() {
+            //			$(".meetingitem").each(function() {
+            //				this.addEventListener("click",function(){
+            //					osg.open("joinpeople.html","joinpeople.html")
+            //				})
+            //			})
     </script>
 </body>
 

@@ -586,9 +586,9 @@
 <body>
     <div class="wrpa">
         <ul class="nav nav-tabs aw-nav-tabs">
-            <li class="navitem active" name="#mywork"><a href="#">我的待办</a></li>
-            <li class="navitem" name="#mylaunch"><a href="#">我的发起</a></li>
-            <li class="navitem " name="#myjoin"><a href="#">我的参与</a></li>
+            <li class="navitem active myselect" name="#mywork" style="display:none;"><a href="#">我的待办</a></li>
+            <li class="navitem mypush" name="#mylaunch"><a href="#">我的发起</a></li>
+            <li class="navitem myjoin" name="#myjoin"><a href="#">我的参与</a></li>
         </ul>
         <div class="allitem" id="mywork">
             <div class="mywork-content" id="item1" style="display:none;">
@@ -650,7 +650,7 @@
                     </table>
                 </div>
             </div>
-            <div class="mywork-content">
+            <div class="mywork-content" id="item3">
                 <div class="mywork-content-title">会议签到(<span class="sigNnums"></span>)</div>
                 <div class="tableList">
                     <table border="0" cellspacing="0" cellpadding="0">
@@ -875,7 +875,9 @@
     <script src="../../resources/js/qrcode.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
+        var bl = false;
         finfuntion();
+        //是否拥有组织生活发布权限
         /**
          * 用户权限处理
          */
@@ -885,10 +887,39 @@
                     $(".mypush").css("display", "");
                     $("#item1").css("display", "");
                     $("#item2").css("display", "");
+                    bl = true;
                 } else {
                     $(".mypush").css("display", "none");
                     $("#item1").css("display", "none");
                     $("#item2").css("display", "none");
+                }
+                finTenantConf();
+            })
+        }
+
+        function finTenantConf() {
+            //获取当前租户对三会一课的配置信息
+            $.get(_ctxPath + "conference/tenant/findTConf.action", {
+                "type": 1
+            }, function(data) {
+                if (data.data.mode == 101) {
+                    if (bl) {
+                        $("#myselect").css("display", "");
+                        $("#mywork").css("display", "");
+                    }
+                } else if (data.data.mode == 102) {
+                    $(".myselect").remove();
+                    $("#mywork").remove();
+                    if (bl) {
+                        $(".mypush").addClass("active");
+                        $("#mylaunch").addClass("active");
+                        $("#mylaunch").css("display", "");
+                    } else {
+                        $(".myjoin").addClass("active");
+                        $("#myjoin").addClass("active");
+                    }
+                } else {
+                    toastr.success("当前租户会议模式配置异常，请于后端配置三会一课会议记录模式！")
                 }
             })
         }
@@ -1286,7 +1317,7 @@
             }, function(data) {
                 pagea = data.data.page; //当前页数(后台返回)
                 pagesa = data.data.total;
-                console.log(data)
+                //console.log(data)
                 var mylunchArr = data.data.data;
                 if (mylunchArr.length > 0) {
                     $(mylunchArr).each(function() {
@@ -1400,16 +1431,16 @@
             $.get(_ctxPath + "conference/disById.action", {
                 "conferId": id
             }, function(data) {
-            	if (data.success) {
-            	toastr.success("会议信息已取消");
-                setTimeout(function() {
-                    launchFindpage()
-                }, 1500)
-            		
-            	} else{
-            		toastr.success(data.message);
-            	}
-                
+                if (data.success) {
+                    toastr.success("会议信息已取消");
+                    setTimeout(function() {
+                        launchFindpage()
+                    }, 1500)
+
+                } else {
+                    toastr.success(data.message);
+                }
+
 
             })
         }
@@ -1419,12 +1450,12 @@
             $.get(_ctxPath + "/conference/delById.action", {
                 "conferId": id
             }, function(data) {
-            	if (data.success) {
-            		 toastr.success("会议信息已删除");
-            	} else{
-            		toastr.success(data.message);	
-            	}
-               
+                if (data.success) {
+                    toastr.success("会议信息已删除");
+                } else {
+                    toastr.success(data.message);
+                }
+
             })
         }
 
@@ -1476,10 +1507,10 @@
                     "conferId": id
                 }, function(data) {
                     if (data.success) {
-                    qqrcode.makeCode(data.data._id);
-                    listenerRr(data.data._id);
-                    } else{
-                    	toastr.success(data.message);
+                        qqrcode.makeCode(data.data._id);
+                        listenerRr(data.data._id);
+                    } else {
+                        toastr.success(data.message);
                     }
                 })
                 $(".shadel").css("display", "")

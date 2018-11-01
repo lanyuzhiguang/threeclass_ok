@@ -455,6 +455,7 @@
             var fileid = fuidArr.toString();
             var nameArr = funameArr.join("/");
             if (btnone) {
+                btnone = false;
                 $.post(_ctxPath + "conference/upMeetCont.action", {
                     "conferId": id,
                     "images": liveimg,
@@ -463,8 +464,9 @@
                     "minfileids": fileid,
                     "minfileNames": nameArr,
                 }, function(data) {
+                    btnone = true;
                     if (data.success) {
-	                    btnone = false;
+
 	                    toastr.success("上传成功！");
 	                    setTimeout(history.back(-1), 1000);
                     } else{
