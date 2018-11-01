@@ -472,7 +472,8 @@
     	<div class="base-title">会议内容</div>
         <div class="meeting-content leave-content">
         	<div class="leave-content-top">
-        		<div id="editor-trigger" contenteditable="false">
+        		<div id="editor-trigger" >
+					<!--<p id="meetingcontent"></p>-->
         			<textarea name="" rows="" cols=""  placeholder="在这里输入正文" id="meetingcontent"></textarea>
 	           </div>
         	</div>
@@ -559,6 +560,7 @@
 <script type="text/javascript">
 	var E = window.wangEditor;
     var editor = new E('meetingcontent');
+
     editor.create();
     var id = "" ;//提交返回的id
     function gobackFUN() {

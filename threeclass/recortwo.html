@@ -404,11 +404,11 @@
             isNduty = [], //缺勤人员
             surplus = []; //未选择人员
         var allpeople = [];
-            
-           
+        var leaveUser = {};
         $(function() {
         	 $.get(_ctxPath + "conference/findUserRecoud.action",{"conferId":meetid},function(data){
                 $(data.data.surplus).each(function(index, value) {
+                	console.log(data.data.surplus)
                     var ztreeData = {};
                     ztreeData.id = value.userId;
                     ztreeData.pId = value.bumenId;
@@ -418,7 +418,6 @@
                     ztreeData.icon = "img/po.png"; //"img/bumen.png"
                     ztreeData.checked = false;
                     surplus.push(ztreeData);
-                    allpeople.push(ztreeData)
                 })
         	 	$(data.data.isSin).each(function(index, value) {
                     var ztreeData = {};
@@ -431,7 +430,7 @@
                     ztreeData.checked = true;
                     isSin.push(ztreeData);
                 })
-        	 	if(isSin.length>0){
+        	 	if(data.data.isSin.length>0){
         	 	 $(".xuanone").text("已选择出席人员"+isSin.length+"人");	
         	 	}
         	 	
@@ -458,7 +457,11 @@
 	            $(".leavepeople").css("display", "")
 	            	
 	            }
+	            if (isNduty.length>0) {
+	            	$(".xuanthree").text("已选择缺勤人员"+isNduty.length+"人");	
+	            }
         	 	$(data.data.isNduty).each(function(index, value) {
+        	 		
                     var ztreeData = {};
                     ztreeData.id = value.userId;
                     ztreeData.pId = value.bumenId;
@@ -469,9 +472,9 @@
                     ztreeData.checked = true;
                     isNduty.push(ztreeData);
                 })
-        	 	if(isNduty.length>0){
-        	 	$(".xuanthree").text("已选择缺勤人员"+isNduty.length+"人");	
-        	 	}
+        	 
+        	 	
+        	 	
         	 	
         	 	
         	 })
@@ -499,9 +502,7 @@
         	var peoleone = isSinidArr.toString();
         	var peopeltwo = isLeaveidArr.toString();
         	var peoplethree = isNdutyidArr.toString();
-        	var nownum =isSinidArr.length+isLeaveidArr.length+isNdutyidArr.length;
-        	var allnum =allpeople.length;
-        	if(nownum==allnum){
+        	if(surplus.length==0){
                 $.post(_ctxPath+"conference/upUserRecoud.action",
                     {conferId:meetid,
                         toUserIds:peoleone,
@@ -764,7 +765,8 @@
                     "content": causecontent
                 }, function(data) {
                     if(data.success){
-                        toastr.success("请假成功");
+                        toastr.success("请假信息提交成功");
+                        leaveUser[myid] = causecontent;
                         setTimeout(function() {
                             $(".shade").css("display", "none");
                         }, 1500)
@@ -788,6 +790,7 @@
             var sbumenid = $(that).attr("bumenid");
             var sbumenName = $(that).attr("bumename");
             var smyid = $(that).attr("myid");
+            $(".causecontent").val(leaveUser[smyid]);
             var smyname = $(that).parent().find(".name").text();
             $(".shade").css("display", "")
             $(".leavename").text(smyname);
