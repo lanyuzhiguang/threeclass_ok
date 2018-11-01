@@ -332,10 +332,10 @@
         .treebtns{
         	padding-top: 20px;
         	width: 100%;
-        	position: relative;
+        	position: absolute;
         	bottom: 10px;
         	text-align: right;
-        	padding-right: 10px;
+        	padding-right: 20px;
         }
         .treebtns button{
         	width: 70px;
@@ -369,7 +369,7 @@
 <body>
 <div class="new-content" >
 	<div class="page-top">
-		<div class="back" onclick="history.back(-1)">&laquo;返回</div>
+		<div class="back" onclick="gobackFUN()">&laquo;返回</div>
 		<div class="pagetitle">新建三会一课-会议详情</div>
 	</div>
     <div class="content">
@@ -553,7 +553,6 @@
 <script src="../../../moduleweb/resources/plugins/qiniu.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/uploadFile.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../../moduleweb/resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="../../resources/plugins/layer/layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="../../resources/plugins/ztree/jquery.ztree.core.min.js"></script>
 <script src="../../resources/plugins/ztree/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="../../layui/layui.all.js"></script>
@@ -561,6 +560,21 @@
 	var E = window.wangEditor;
     var editor = new E('meetingcontent');
     editor.create();
+    var id = "" ;//提交返回的id
+    function gobackFUN() {
+        if(meetid){
+            layer.confirm("会议已创建确定要返回主页吗", {
+                btn: ['确定', '取消'] //按钮
+            }, function() {
+                window.location.href="pcmyjoin.html";
+            }, function() {
+
+            });
+		}
+		else{
+            window.location.href="pcmyjoin.html";
+		}
+    }
 </script>
 <script type="text/javascript">
     	layui.use('laydate', function(){
@@ -587,6 +601,8 @@
 	var conferId = "";
 	var selectP = $(".selectP");
 	var onlyone = true;
+    var upsectionid = "";
+    var uppeopleIDs;
 	$(function(){
 			//获得类型
 			var meettypeitem = $(".meettypeitem");
@@ -677,6 +693,7 @@
 		var onlycontent = editor.$txt.formatText();
 		var jilup = $(".jilu").val();
 		var zhuchip = $(".zhuchi").val();
+
 		//图片
 		var liveimgall = $(".liveimglist").find(".needimg");
 		$(liveimgall).each(function(){
@@ -691,10 +708,10 @@
 			funameArr.push(filename);
 		})
 		//部门id
-		var upsectionid = $(".xuanbumen").attr("id");
+		upsectionid = $(".xuanbumen").attr("id");
 		var upsectionname =$(".xuanbumen").text(); 
 		//人
-		var uppeopleIDs = peoplearrid.toString();
+		uppeopleIDs = peoplearrid.toString();
 //		附件
          var fuids = fuidArr.toString();
          var funames = funameArr.join("/");
@@ -723,7 +740,7 @@
 				  },function(data){
 				  		if (data.success) {
 				  			onlyone= false;
-				    		var id = data.data._id
+				    		id = data.data._id
 				     		window.location.href="recortwo.html?id="+id;
 				  		} 
 				  		else{
@@ -790,7 +807,11 @@
                $.get(_ctxPath+"zTreeData/queryTreeByCode.action",{actCode:"addnotice"},function(data){
 				 	if(data){
 				 		var zNodes = data;
+                           var chongxiansectionid =$(".xuanbumen").attr("id");
 				 		$(zNodes).each(function(){
+                            if(this.id==chongxiansectionid){
+                                this.checked=true
+                            }
 			          	this.icon = "img/bumen.png"
 			          	if(this.typea=="1"||this.typea=="2"){
 			          		this.chkDisabled =true
@@ -858,12 +879,13 @@ var setting2 = {
 	 			val.icon = "img/bumen.png"
 	 		}
    			else{
+
+			    $(peoplearrid).each(function(i,key){
+			        if(val.id==key){
+			            val.checked=true
+					}
+				})
    				this.icon = "img/po.png";
-// 				var item =selectP.clone();
-//			 		item.text(this.name);
-//			 		item.val(this._id);
-//			 		$(".jilulist").append(item.clone());
-//			 		$(".zhuchilist").append(item.clone())
    			}
    			if (peoplearrid.indexOf(this.id) != -1) {
                 this.checked = true;

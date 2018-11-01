@@ -386,10 +386,10 @@
         .treebtns{
         	padding-top: 20px;
         	width: 100%;
-        	position: relative;
+        	position:absolute;
         	bottom: 10px;
         	text-align: right;
-        	padding-right: 10px;
+        	padding-right: 20px;
         }
         .treebtns button{
         	width: 70px;
@@ -621,7 +621,9 @@
         var funameArr = [];
         var fuidArr = [];
         var conferId = "";
-        var onlyone = true; 
+        var onlyone = true;
+        var upsectionid = "";
+        var uppeopleIDs;
         $(function() {
             //获得类型
             var meettypeitem = $(".meettypeitem");
@@ -727,10 +729,10 @@
                     funameArr.push(filename);
                 })
                 //部门id
-            var upsectionid = $(".xuanbumen").attr("id");
+            upsectionid = $(".xuanbumen").attr("id");
             var upsectionname = $(".xuanbumen").text();
             //人
-            var uppeopleIDs = peoplearrid.toString();
+            uppeopleIDs = peoplearrid.toString();
             //		附件
             var fuids = fuidArr.toString();
             var funames = funameArr.join("/");
@@ -828,7 +830,11 @@
             }, function(data) {
                 if (data) {
                     var zNodes = data;
-                    $(zNodes).each(function() {
+                    var chongxiansectionid =$(".xuanbumen").attr("id");
+                    $(zNodes).each(function(){
+                        if(this.id==chongxiansectionid){
+                            this.checked=true
+                        }
                         this.icon = "img/bumen.png"
                         if (this.typea == "1" || this.typea == "2") {
                             this.chkDisabled = true
@@ -896,6 +902,11 @@
                         if (val.isParent == true) {
                             val.icon = "img/bumen.png"
                         } else {
+                            $(peoplearrid).each(function(i,key){
+                                if(val.id==key){
+                                    val.checked=true
+                                }
+                            })
                             this.icon = "img/po.png"
                         }
                         if (peoplearrid.indexOf(this.id) != -1) {

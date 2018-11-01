@@ -143,14 +143,13 @@
             box-shadow: 0px 4px 12px rgba(152, 139, 139, 0.447058823529412)
         }
         .treebtns{
-        	padding-top: 20px;
-        	width: 100%;
-        	position: relative;
-        	bottom: 10px;
-        	text-align: right;
-        	padding-right: 10px;
+            padding-top: 20px;
+            width: 100%;
+            position:absolute;
+            bottom: 10px;
+            text-align: right;
+            padding-right: 20px;
         }
-        
         .treebtns button {
             width: 70px;
             height: 32px;
@@ -404,6 +403,7 @@
             isLeave = [], //请假人员
             isNduty = [], //缺勤人员
             surplus = []; //未选择人员
+        var allpeople = [];
             
            
         $(function() {
@@ -418,6 +418,7 @@
                     ztreeData.icon = "img/po.png"; //"img/bumen.png"
                     ztreeData.checked = false;
                     surplus.push(ztreeData);
+                    allpeople.push(ztreeData)
                 })
         	 	$(data.data.isSin).each(function(index, value) {
                     var ztreeData = {};
@@ -497,21 +498,29 @@
         	})
         	var peoleone = isSinidArr.toString();
         	var peopeltwo = isLeaveidArr.toString();
-        	var peoplethree = isNdutyidArr.toString(); 
-        	$.post(_ctxPath+"conference/upUserRecoud.action",
-	        	{conferId:meetid,
-	            toUserIds:peoleone, 
-	            levaUserIds:peopeltwo,
-	        	noUserIds:peoplethree
-	        	},function(data){
-	        		if (data.success) {
-	        			window.location.href = "uprecordthree.html?id=" + meetid;
-	        			
-	        		} else{
-	        			toastr.success(data.message);	
-	        		}
-	        		
-	        	})
+        	var peoplethree = isNdutyidArr.toString();
+        	var nownum =isSinidArr.length+isLeaveidArr.length+isNdutyidArr.length;
+        	var allnum =allpeople.length;
+        	if(nownum==allnum){
+                $.post(_ctxPath+"conference/upUserRecoud.action",
+                    {conferId:meetid,
+                        toUserIds:peoleone,
+                        levaUserIds:peopeltwo,
+                        noUserIds:peoplethree
+                    },function(data){
+                        if (data.success) {
+                            window.location.href = "uprecordthree.html?id=" + meetid;
+
+                        } else{
+                            toastr.success(data.message);
+                        }
+
+                    })
+            }
+            else{
+                toastr.success("还有人员未被选择");
+            }
+
            
         }
         function getParam(paramName) {
@@ -745,20 +754,30 @@
             var myid = $(".leavename").attr("myid");
             var myname = $(".leavename").text();
             var causecontent = $(".causecontent").val();
-            $.get(_ctxPath + "conference/detail/audFULeave.action", {
-                "conferId": meetid,
-                "userId": myid,
-                "userName": myname,
-                "bumenId": bumenid,
-                "bumenName": bumenName,
-                "content": causecontent
-            }, function(data) {
-                toastr.success("请假成功");
-                setTimeout(function() {
-                    $(".shade").css("display", "none");
-                }, 1500)
+            if(causecontent){
+                $.get(_ctxPath + "conference/detail/audFULeave.action", {
+                    "conferId": meetid,
+                    "userId": myid,
+                    "userName": myname,
+                    "bumenId": bumenid,
+                    "bumenName": bumenName,
+                    "content": causecontent
+                }, function(data) {
+                    if(data.success){
+                        toastr.success("请假成功");
+                        setTimeout(function() {
+                            $(".shade").css("display", "none");
+                        }, 1500)
+                    }
+                    else{
+                        toastr.success(data.message);
+                    }
 
-            })
+                })
+            }
+            else{
+                toastr.success("请填写请假理由");
+            }
         }
 
         function delkuang() {
