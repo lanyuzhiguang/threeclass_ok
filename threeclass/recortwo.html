@@ -142,10 +142,11 @@
             overflow-x: auto;
             box-shadow: 0px 4px 12px rgba(152, 139, 139, 0.447058823529412)
         }
-        .treebtns{
+        
+        .treebtns {
             padding-top: 20px;
             width: 100%;
-            position:absolute;
+            position: absolute;
             bottom: 10px;
             text-align: right;
             padding-right: 20px;
@@ -210,16 +211,17 @@
             line-height: 32px;
             border-radius: 4px;
         }
-        .shade{
-            position:absolute;
+        
+        .shade {
+            position: absolute;
             right: 0;
             bottom: 0;
-            top:0;
+            top: 0;
             left: 0;
             background-color: rgba(152, 139, 139, 0.2);
             z-index: 998;
-
         }
+        
         .leave-wrap {
             position: absolute;
             bottom: 0;
@@ -280,115 +282,115 @@
 </head>
 
 <body>
-	<div class="" style="position: relative;">
-		<div class="clearfix upleave">
-        <div class="page-top">
-            <div class="back" onclick="gobackFU()">&laquo;返回</div>
-            <div class="pagetitle">新建三会一课-人员</div>
-        </div>
-        <div class="content ">
-            <div class="base-title">会议出席情况</div>
-            <div class="meeting-content leave-content">
-                <div class="content-item">
-                    <div class="content-item-title">
-                        <span class="iconfont">*</span>
-                        <span class="name">出席人员</span>
-                    </div>
-                    <div class="xuan xuanone" onclick="xuanpeo()">请选择</div>
-                    <div class="shadelone shadel" style="display: none;">
-                        <div class="sctionone sctiontree">
-                            <div class="sctiontree-ttitle">出席人员选择</div>
-                            <ul id="treeDemo1" class="ztree"></ul>
-                            <div class="treebtns">
-                                <button onclick="clearone()" class="writebtn">取消</button>
-                                <button onclick="hideMenuone()" class="bluebtn">确定</button>
-                            </div>
+    <div class="" style="position: relative;">
+        <div class="clearfix upleave">
+            <div class="page-top">
+                <div class="back" onclick="gobackFU()">&laquo;返回</div>
+                <div class="pagetitle">新建三会一课-人员</div>
+            </div>
+            <div class="content ">
+                <div class="base-title">会议出席情况</div>
+                <div class="meeting-content leave-content">
+                    <div class="content-item">
+                        <div class="content-item-title">
+                            <span class="iconfont">*</span>
+                            <span class="name">出席人员</span>
                         </div>
-                    </div>
-                </div>
-                <div class="content-item">
-                    <div class="content-item-title">
-                        <span class="iconfont">*</span>
-                        <span class="name">请假人员</span>
-                    </div>
-                    <div class="xuan xuantwo" onclick="selecttwo()">请选择</div>
-                    <div class="shadeltwo shadel" style="display: none;">
-                        <div class="sctiontwo sctiontree">
-                            <div class="sctiontree-ttitle">请假人员选择</div>
-                            <div class="">请假人员选择:</div>
-                            <ul id="treeDemo2" class="ztree"></ul>
-                            <div class="treebtns">
-                                <button onclick="cleartwo()" class="writebtn">取消</button>
-                                <button onclick="hideMenutwo()" class="bluebtn">确定</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shade" style="display: none">
-                        <div class="leave-wrap" >
-                            <div class="leave-top">
-                                <span>添加请假原因</span>
-                                <span onclick="delkuang()" class="xwuxiao">X</span>
-                            </div>
-                            <div class="leave-content">
-                                <div>
-                                    <span id="">姓名：</span>
-                                    <span class="leavename"></span>
-                                </div>
-                                <div class="">请假原因</div>
-                                <textarea name="" rows="" cols="" placeholder="请填写请假原因" class="causecontent"></textarea>
-                                <div class="leavebtns">
-                                    <button class="writebtn" onclick="delkuang()">取消</button>
-                                    <button class="bluebtn" onclick="addleave()">确定</button>
+                        <div class="xuan xuanone" onclick="xuanpeo()">请选择</div>
+                        <div class="shadelone shadel" style="display: none;">
+                            <div class="sctionone sctiontree">
+                                <div class="sctiontree-ttitle">出席人员选择</div>
+                                <ul id="treeDemo1" class="ztree"></ul>
+                                <div class="treebtns">
+                                    <button onclick="clearone()" class="writebtn">取消</button>
+                                    <button onclick="hideMenuone()" class="bluebtn">确定</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
+                    <div class="content-item">
+                        <div class="content-item-title">
+                            <span class="iconfont">*</span>
+                            <span class="name">请假人员</span>
+                        </div>
+                        <div class="xuan xuantwo" onclick="selecttwo()">请选择</div>
+                        <div class="shadeltwo shadel" style="display: none;">
+                            <div class="sctiontwo sctiontree">
+                                <div class="sctiontree-ttitle">请假人员选择</div>
+                                <div class="">请假人员选择:</div>
+                                <ul id="treeDemo2" class="ztree"></ul>
+                                <div class="treebtns">
+                                    <button onclick="cleartwo()" class="writebtn">取消</button>
+                                    <button onclick="hideMenutwo()" class="bluebtn">确定</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shade" style="display: none">
+                            <div class="leave-wrap">
+                                <div class="leave-top">
+                                    <span>添加请假原因</span>
+                                    <span onclick="delkuang()" class="xwuxiao">X</span>
+                                </div>
+                                <div class="leave-content">
+                                    <div>
+                                        <span id="">姓名：</span>
+                                        <span class="leavename"></span>
+                                    </div>
+                                    <div class="">请假原因</div>
+                                    <textarea name="" rows="" cols="" placeholder="请填写请假原因" class="causecontent"></textarea>
+                                    <div class="leavebtns">
+                                        <button class="writebtn" onclick="delkuang()">取消</button>
+                                        <button class="bluebtn" onclick="addleave()">确定</button>
+                                    </div>
+                                </div>
 
-                    <div class="leavepeople" style="display: none;">
-                        <table border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <th>姓名</th>
-                                <th>操作</th>
-                            </tr>
-                            <tbody class="tablelist">
-                                <tr class="peopleitem">
-                                    <td class="name"></td>
-                                    <td onclick="seekuang(this)" class="bianji">编辑</td>
+                            </div>
+                        </div>
+
+                        <div class="leavepeople" style="display: none;">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>操作</th>
                                 </tr>
-                            </tbody>
+                                <tbody class="tablelist">
+                                    <tr class="peopleitem">
+                                        <td class="name"></td>
+                                        <td onclick="seekuang(this)" class="bianji">编辑</td>
+                                    </tr>
+                                </tbody>
 
-                        </table>
+                            </table>
 
+                        </div>
                     </div>
-                </div>
-                <div class="content-item">
-                    <div class="content-item-title">
-                        <span class="iconfont">*</span>
-                        <span class="name">缺勤人员</span>
-                    </div>
-                    <div class="xuan xuanthree" onclick="selectthree()">请选择</div>
-                    <div class="shadelthree shadel" style="display: none;">
-                        <div class="sctiotree sctiontree">
-                            <div class="sctiontree-ttitle">缺勤人员选择</div>
-                            <ul id="treeDemo3" class="ztree"></ul>
-                            <div class="treebtns">
-                                <button onclick="clearthree()" class="writebtn">取消</button>
-                                <button onclick="hideMenuthree()" class="bluebtn">确定</button>
+                    <div class="content-item">
+                        <div class="content-item-title">
+                            <span class="iconfont">*</span>
+                            <span class="name">缺勤人员</span>
+                        </div>
+                        <div class="xuan xuanthree" onclick="selectthree()">请选择</div>
+                        <div class="shadelthree shadel" style="display: none;">
+                            <div class="sctiotree sctiontree">
+                                <div class="sctiontree-ttitle">缺勤人员选择</div>
+                                <ul id="treeDemo3" class="ztree"></ul>
+                                <div class="treebtns">
+                                    <button onclick="clearthree()" class="writebtn">取消</button>
+                                    <button onclick="hideMenuthree()" class="bluebtn">确定</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="btns">
+                    <button style="margin-right: 15px;" onclick="gobackFU()">上一步</button>
+                    <button onclick="nextbtn()">下一步</button>
+                </div>
             </div>
-            <div class="btns">
-                <button style="margin-right: 15px;" onclick="gobackFU()">上一步</button>
-                <button onclick="nextbtn()">下一步</button>
-            </div>
-        </div>
 
 
         </div>
-   </div>
+    </div>
 
     <script src="../../resources/js/jquery.min.js"></script>
     <script src="../../resources/js/bootstrap.min.js"></script>
@@ -399,7 +401,7 @@
     <script type="text/javascript">
         var meetid = getParam("id");
         var peopleitem = $(".peopleitem");
-         peopleitem.remove();
+        peopleitem.remove();
         var isSin = [], //出席人员
             isLeave = [], //请假人员
             isNduty = [], //缺勤人员
@@ -408,9 +410,11 @@
         var leaveUser = {};
         var onlyone = true;
         $(function() {
-        	 $.get(_ctxPath + "conference/findUserRecoud.action",{"conferId":meetid},function(data){
+            $.get(_ctxPath + "conference/findUserRecoud.action", {
+                "conferId": meetid
+            }, function(data) {
                 $(data.data.surplus).each(function(index, value) {
-                	console.log(data.data.surplus)
+                    //console.log(data.data.surplus)
                     var ztreeData = {};
                     ztreeData.id = value.userId;
                     ztreeData.pId = value.bumenId;
@@ -421,7 +425,7 @@
                     ztreeData.checked = false;
                     surplus.push(ztreeData);
                 })
-        	 	$(data.data.isSin).each(function(index, value) {
+                $(data.data.isSin).each(function(index, value) {
                     var ztreeData = {};
                     ztreeData.id = value.userId;
                     ztreeData.pId = value.bumenId;
@@ -432,11 +436,11 @@
                     ztreeData.checked = true;
                     isSin.push(ztreeData);
                 })
-        	 	if(data.data.isSin.length>0){
-        	 	 $(".xuanone").text("已选择出席人员"+isSin.length+"人");	
-        	 	}
-        	 	
-        	 	$(data.data.Late).each(function(index, value) {
+                if (data.data.isSin.length > 0) {
+                    $(".xuanone").text("已选择出席人员" + isSin.length + "人");
+                }
+
+                $(data.data.Late).each(function(index, value) {
                     var ztreeData = {};
                     ztreeData.id = value.userId;
                     ztreeData.pId = value.bumenId;
@@ -447,23 +451,23 @@
                     ztreeData.checked = true;
                     isLeave.push(ztreeData);
                 })
-        	 	
-	            if(isLeave.length>0){
-	            $(isLeave).each(function() {
-	            	 $(".xuantwo").text("已选择请假人员"+isLeave.length+"人");
-	                var item = peopleitem.clone();
-	                item.find(".name").text(this.name);
-	                item.find(".bianji").attr("myid", this.id).attr("bumenid", this.pId).attr("bumename", this.bumenName);
-	                $(".tablelist").append(item)
-	            })
-	            $(".leavepeople").css("display", "")
-	            	
-	            }
-	            if (isNduty.length>0) {
-	            	$(".xuanthree").text("已选择缺勤人员"+isNduty.length+"人");	
-	            }
-        	 	$(data.data.isNduty).each(function(index, value) {
-        	 		
+
+                if (isLeave.length > 0) {
+                    $(isLeave).each(function() {
+                        $(".xuantwo").text("已选择请假人员" + isLeave.length + "人");
+                        var item = peopleitem.clone();
+                        item.find(".name").text(this.name);
+                        item.find(".bianji").attr("myid", this.id).attr("bumenid", this.pId).attr("bumename", this.bumenName);
+                        $(".tablelist").append(item)
+                    })
+                    $(".leavepeople").css("display", "")
+
+                }
+                if (isNduty.length > 0) {
+                    $(".xuanthree").text("已选择缺勤人员" + isNduty.length + "人");
+                }
+                $(data.data.isNduty).each(function(index, value) {
+
                     var ztreeData = {};
                     ztreeData.id = value.userId;
                     ztreeData.pId = value.bumenId;
@@ -474,66 +478,66 @@
                     ztreeData.checked = true;
                     isNduty.push(ztreeData);
                 })
-        	 
-        	 	
-        	 	
-        	 	
-        	 	
-        	 })
+
+
+
+
+
+            })
         })
-        
-        function gobackFU (){
-       	  window.location.href = "recordWchange.html?id=" + meetid;
-       	}
+
+        function gobackFU() {
+            window.location.href = "recordWchange.html?id=" + meetid;
+        }
+
         function nextbtn() {
-        	var isSinidArr = [];
-        	var isLeaveidArr = [];
-        	var isNdutyidArr = [];
-        	$(isSin).each(function(){
-        		var isSinid = this.id;
-        		isSinidArr.push(isSinid)
-        	})
-        	$(isLeave).each(function(){
-        		var isLeaveid = this.id;
-        		isLeaveidArr.push(isLeaveid)
-        	})
-        	$(isNduty).each(function(){
-        		var isNdutyid = this.id;
-        		isNdutyidArr.push(isNdutyid)
-        	})
-        	var peoleone = isSinidArr.toString();
-        	var peopeltwo = isLeaveidArr.toString();
-        	var peoplethree = isNdutyidArr.toString();
-        	if(surplus.length==0){
-        	    if (onlyone){
-        	        only = false;
-                    $.post(_ctxPath+"conference/upUserRecoud.action",
-                        {conferId:meetid,
-                            toUserIds:peoleone,
-                            levaUserIds:peopeltwo,
-                            noUserIds:peoplethree
-                        },function(data){
-                            only = true;
-                            if (data.success) {
-                                window.location.href = "uprecordthree.html?id=" + meetid;
+            var isSinidArr = [];
+            var isLeaveidArr = [];
+            var isNdutyidArr = [];
+            $(isSin).each(function() {
+                var isSinid = this.id;
+                isSinidArr.push(isSinid)
+            })
+            $(isLeave).each(function() {
+                var isLeaveid = this.id;
+                isLeaveidArr.push(isLeaveid)
+            })
+            $(isNduty).each(function() {
+                var isNdutyid = this.id;
+                isNdutyidArr.push(isNdutyid)
+            })
+            var peoleone = isSinidArr.toString();
+            var peopeltwo = isLeaveidArr.toString();
+            var peoplethree = isNdutyidArr.toString();
+            if (surplus.length == 0) {
+                if (onlyone) {
+                    only = false;
+                    $.post(_ctxPath + "conference/upUserRecoud.action", {
+                        conferId: meetid,
+                        toUserIds: peoleone,
+                        levaUserIds: peopeltwo,
+                        noUserIds: peoplethree
+                    }, function(data) {
+                        only = true;
+                        if (data.success) {
+                            window.location.href = "uprecordthree.html?id=" + meetid;
 
-                            } else{
-                                toastr.success(data.message);
-                            }
+                        } else {
+                            toastr.success(data.message);
+                        }
 
-                        })
-                }
-                else{
+                    })
+                } else {
                     toastr.success("请勿重复提交");
                 }
 
-            }
-            else{
+            } else {
                 toastr.success("还有人员未被选择");
             }
 
-           
+
         }
+
         function getParam(paramName) {
             paramValue = "", isFound = !1;
             if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
@@ -633,7 +637,7 @@
                 }
             })
             isSin = alltreefun(selectArr);
-            $(".xuanone").text("已选择出席人员"+isSin.length+"人");
+            $(".xuanone").text("已选择出席人员" + isSin.length + "人");
         }
 
         function hideMenuone() {
@@ -685,18 +689,18 @@
                 }
             })
             isLeave = alltreefun(selectArr);
-            $(".xuantwo").text("已选择请假人员"+isLeave.length+"人");
-            if(isLeave.length>0){
-            $(isLeave).each(function() {
-                var item = peopleitem.clone();
-                item.find(".name").text(this.name);
-                item.find(".bianji").attr("myid", this.id).attr("bumenid", this.pId).attr("bumename", this.bumenName);
-                $(".tablelist").append(item)
-            })
-            $(".leavepeople").css("display", "")
-            	
+            $(".xuantwo").text("已选择请假人员" + isLeave.length + "人");
+            if (isLeave.length > 0) {
+                $(isLeave).each(function() {
+                    var item = peopleitem.clone();
+                    item.find(".name").text(this.name);
+                    item.find(".bianji").attr("myid", this.id).attr("bumenid", this.pId).attr("bumename", this.bumenName);
+                    $(".tablelist").append(item)
+                })
+                $(".leavepeople").css("display", "")
+
             }
-            
+
 
 
         }
@@ -705,7 +709,6 @@
             $(".shadeltwo").css("display", "none");
             counttwo()
         }
-       
     </script>
     <script>
         //	缺勤选人
@@ -738,6 +741,7 @@
             zTree3 = $.fn.zTree.init($("#treeDemo3"), setting3, pagepeoplearr);
             var node = zTree3.getNodeByParam("id", 0)
         }
+
         function countthree() {
             checkCount = zTree3.getCheckedNodes(true);
             var selectArr = [];
@@ -750,22 +754,23 @@
                 }
             })
             isNduty = alltreefun(selectArr);
-            $(".xuanthree").text("已选择缺勤人员"+isNduty.length+"人");
+            $(".xuanthree").text("已选择缺勤人员" + isNduty.length + "人");
         }
+
         function hideMenuthree() {
             $(".shadelthree").css("display", "none");
             countthree()
         }
     </script>
     <script type="text/javascript">
-    	//给请假人员填写请假理由
+        //给请假人员填写请假理由
         function addleave() {
             var bumenid = $(".leavename").attr("bumenid");
             var bumenName = $(".leavename").attr("bumename");
             var myid = $(".leavename").attr("myid");
             var myname = $(".leavename").text();
             var causecontent = $(".causecontent").val();
-            if(causecontent){
+            if (causecontent) {
                 $.get(_ctxPath + "conference/detail/audFULeave.action", {
                     "conferId": meetid,
                     "userId": myid,
@@ -774,20 +779,18 @@
                     "bumenName": bumenName,
                     "content": causecontent
                 }, function(data) {
-                    if(data.success){
+                    if (data.success) {
                         toastr.success("请假信息提交成功");
                         leaveUser[myid] = causecontent;
                         setTimeout(function() {
                             $(".shade").css("display", "none");
                         }, 1500)
-                    }
-                    else{
+                    } else {
                         toastr.success(data.message);
                     }
 
                 })
-            }
-            else{
+            } else {
                 toastr.success("请填写请假理由");
             }
         }

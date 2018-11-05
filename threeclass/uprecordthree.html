@@ -423,63 +423,63 @@
             }
 
         })
+
         function uprecord() {
-            //会议中
-
-            var liveimgall = $(".liveimglist").find(".needimg");
-            $(liveimgall).each(function() {
-                    liveArr.push($(this).attr("goimgup"));
-                })
-                //会议内容
-            var content = editor.$txt.html();
-
-            //会议记录图片
-
-            var laterimgall = $(".laterimglist").find(".needimg");
-            $(laterimgall).each(function() {
-                    lafterArr.push($(this).attr("goimgup"))
-                })
-                //会议附件
-
-            var upfileall = $(".upfilelist").find(".funjianitem");
-            $(upfileall).each(function() {
-                    var fileid = $(this).find(".filename").attr("flieid");
-                    fuidArr.push(fileid);
-                    var filename = $(this).find(".filename").text();
-                    funameArr.push(filename);
-                })
-                //接口
-            var liveimg = liveArr.toString();
-            var afterimg = lafterArr.toString();
-            var fileid = fuidArr.toString();
-            var nameArr = funameArr.join("/");
             if (btnone) {
                 btnone = false;
+                //会议中
+                var liveimgall = [];
+                liveArr = [];
+                liveimgall = $(".liveimglist").find(".needimg");
+                $(liveimgall).each(function() {
+                        liveArr.push($(this).attr("goimgup"));
+                    })
+                    //会议内容
+                var content = editor.$txt.html();
+
+                //会议记录图片
+                var laterimgall = [];
+                lafterArr = [];
+                laterimgall = $(".laterimglist").find(".needimg");
+                $(laterimgall).each(function() {
+                        lafterArr.push($(this).attr("goimgup"))
+                    })
+                    //会议附件
+                var upfileall = [];
+                fuidArr = [];
+                funameArr = [];
+                var upfileall = $(".upfilelist").find(".funjianitem");
+                $(upfileall).each(function() {
+                        var fileid = $(this).find(".filename").attr("flieid");
+                        fuidArr.push(fileid);
+                        var filename = $(this).find(".filename").text();
+                        funameArr.push(filename);
+                    })
+                    //接口
+                var liveimg = liveArr.toString();
+                var afterimg = lafterArr.toString();
+                var fileids = fuidArr.toString();
+                var nameArr = funameArr.join("/");
+
                 $.post(_ctxPath + "conference/upMeetCont.action", {
                     "conferId": id,
                     "images": liveimg,
                     "minCont": content,
                     "minImges": afterimg,
-                    "minfileids": fileid,
+                    "minfileids": fileids,
                     "minfileNames": nameArr,
                 }, function(data) {
+                    if (data.success) {
+                        toastr.success("上传成功！");
+                        window.location.href = "pcmyjoin.html";
+                    } else {
+                        toastr.success(data.message);
+                    }
                     btnone = true;
-                  if (data.success) {
-
-                    	toastr.success("上传成功！");
-                    	setTimeout(function() {
-                        window.location.href = "pcmyjoin.html"
-                    	}, 1000);
-                  } 
-                  else{
-                  		toastr.success(data.message);
-                  }
                 })
             } else {
                 toastr.success("请勿重复提交");
             }
-
-
         }
 
         function getParam(paramName) {
@@ -490,9 +490,10 @@
             }
             return paramValue == "" && (paramValue = null), paramValue;
         }
-    	function gobackFU (){
-       	  window.location.href = "recortwo.html?id=" + id;
-       	}
+
+        function gobackFU() {
+            window.location.href = "recortwo.html?id=" + id;
+        }
     </script>
 </body>
 
